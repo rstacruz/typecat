@@ -6,6 +6,10 @@ export type Token = {
   value: string
 }
 
+export type TokenStatus = {
+  isAccurate: boolean
+}
+
 export type Store = {
   state: {
     article: {
@@ -15,9 +19,10 @@ export type Store = {
     currentInput: {
       value: string
       /** Index of the current token */
-      currentToken: number
+      tokenIndex: number
       /** -1 if the next is to be ignored */
-      currentChar: number
+      charIndex: number
+      finishedTokens: TokenStatus[]
     }
   }
   actions: {
@@ -58,9 +63,10 @@ const [useStore] = create<Store>((set) => {
     },
     currentInput: {
       value: '',
-      currentToken: 0,
-      currentChar: 0,
-      /* currentAccuracy: true, */
+      tokenIndex: 0,
+      charIndex: 0,
+      /* isAccurate: true, */
+      finishedTokens: [],
       /* finished: [ { accurate: true }, { accurate: false }], */
     },
   }
@@ -74,25 +80,26 @@ const [useStore] = create<Store>((set) => {
         }
 
         // Just pressed whitespace, ignore the whitespace that was presed
-        if (state.currentInput.currentChar === -1) {
-          state.currentInput.currentChar = 0
+        if (state.currentInput.charIndex === -1) {
+          state.currentInput.charIndex = 0
           return
         }
 
         // TODO: check accuracy
         state.currentInput.value = value
-        state.currentInput.currentChar = value.length
+        state.currentInput.charIndex = value.length
       })
     },
 
     inputWhitespace: () => {
       update(({ state }) => {
+        const index = state.currentInput.tokenIndex
+
         // TODO: Skip over any whitespace nodes
-        // TODO: check accuracy
-        // TODO: check if done
-        state.currentInput.currentToken += 2
-        state.currentInput.currentChar = -1
+        state.currentInput.tokenIndex += 2
+        state.currentInput.charIndex = -1
         state.currentInput.value = ''
+        state.currentInput.finishedTokens[index] = { isAccurate: true }
       })
     },
   }
