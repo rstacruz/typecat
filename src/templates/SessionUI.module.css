@@ -1,0 +1,13 @@
+.root {
+  @apply bg-gray-200 rounded-sm;
+  width: 380px;
+}
+
+.article,
+.input {
+  @apply p-4;
+}
+
+.input {
+  border-top: solid 1px #8882;
+}

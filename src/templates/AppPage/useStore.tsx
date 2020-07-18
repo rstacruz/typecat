@@ -10,7 +10,7 @@ export type Store = {
   state: {
     article: {
       tokens: Token[]
-      tokenIndex: 0
+      currentToken: 0
     }
     session: { startedAt: Date | null }
     input: { value: string }
@@ -31,7 +31,7 @@ const [useStore] = create<Store>((set) => {
         { type: 'whitespace', value: ' ' },
         { type: 'text', value: 'world' },
       ],
-      tokenIndex: 0,
+      currentToken: 0,
     },
     session: {
       startedAt: null,

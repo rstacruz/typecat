@@ -1,2 +1,7 @@
 .root {
+  @apply inline-block;
+}
+
+.isActive {
+  text-decoration: underline;
 }

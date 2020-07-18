@@ -3,11 +3,17 @@ import useStore, { Token } from './AppPage/useStore'
 import CSS from './TextToken.module.css'
 import cn from 'classnames'
 
-export function TextToken(props: { token: Token }) {
+const NBSP = String.fromCharCode(160)
+
+export function TextToken(props: { token: Token; index: number }) {
   const { token } = props
   const { state } = useStore()
+  const isActive = state.article.currentToken === props.index
 
-  return <span className={CSS.root}>{token.value}</span>
+  const value = token.value.replace(/ /g, NBSP)
+  return (
+    <span className={cn(CSS.root, { [CSS.isActive]: isActive })}>{value}</span>
+  )
 }
 
 export default TextToken
