@@ -7,19 +7,29 @@
     "dev": "gatsby develop --port ${PORT:-38900}"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "gatsby": "^2.24.4",
+    "gatsby-plugin-postcss": "^2.3.11",
+    "gatsby-plugin-purgecss": "^5.0.0",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-typescript": "^2.4.15",
+    "immer": "^7.0.5",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "sanitize.css": "^11.0.1",
-    "typeface-inter": "^3.12.0"
+    "tailwindcss": "^1.5.1",
+    "typeface-inter": "^3.12.0",
+    "zustand": "^2.2.3"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/react-helmet": "^6.0.0",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "typescript-plugin-css-modules": "^2.4.0"
   }
 }
