@@ -10,6 +10,9 @@ export function InputField() {
       className={CSS.input}
       autoFocus
       type='text'
+      placeholder={
+        state.session.status === 'idle' ? 'Type something to start' : undefined
+      }
       value={state.currentInput.value}
       onChange={(event) => {
         actions.setInputValue(event.target.value)

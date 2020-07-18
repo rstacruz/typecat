@@ -29,7 +29,7 @@ function SessionUI() {
             </span>
           </div>
         ) : (
-          <div className={CSS.input}>
+          <div className={CSS.idleInput}>
             <InputField />
           </div>
         )}

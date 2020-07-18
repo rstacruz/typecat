@@ -1,7 +1,7 @@
 .root {
-  @apply rounded-md flex-none;
+  @apply rounded-lg flex-none;
   width: 560px;
-  box-shadow: 0 1px 2px #4564, 0 8px 12px #4561, 0 24px 32px #4561;
+  box-shadow: 0 1px 2px #4564, 0 8px 12px #44556609, 0 24px 32px #44556609;
 }
 
 .article {
@@ -9,8 +9,16 @@
 }
 
 .input {
-  @apply flex items-center;
-  border-top: solid 1px #8884;
+  @apply flex items-center m-4 mt-0 rounded-lg;
+}
+
+.idleInput {
+  composes: input;
+  @apply bg-gray-100;
+
+  &:focus-within {
+    box-shadow: inset 0 0 0 1px theme('colors.gray.400');
+  }
 }
 
 .wrap {
@@ -19,7 +27,11 @@
 
 .ongoingInput {
   composes: input;
-  background: #8881;
+  @apply bg-gray-200;
+
+  &:focus-within {
+    box-shadow: inset 0 0 0 1px theme('colors.green.300');
+  }
 }
 
 .inputField {
