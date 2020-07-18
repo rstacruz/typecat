@@ -1,11 +1,13 @@
 import React from 'react'
 import useStore from './useStore'
+import CSS from './InputField.module.css'
 
 export function InputField() {
   const { state, actions } = useStore()
 
   return (
     <input
+      className={CSS.input}
       autoFocus
       type='text'
       value={state.currentInput.value}

@@ -1,5 +1,6 @@
 import create from 'zustand'
 import produce from 'immer'
+import tokenize from './tokenize'
 
 export type Token = {
   type: string
@@ -13,7 +14,8 @@ export type TokenStatus = {
 export type Store = {
   state: {
     article: {
-      tokens: Token[]
+      /** We'll allow null to catch any possible OOB checks */
+      tokens: (Token | null)[]
     }
     session: { startedAt: Date | null }
     currentInput: {
@@ -22,7 +24,8 @@ export type Store = {
       tokenIndex: number
       /** -1 if the next is to be ignored */
       charIndex: number
-      finishedTokens: TokenStatus[]
+      isAccurate: boolean
+      finishedTokens: (TokenStatus | null | void)[]
     }
   }
   actions: {
@@ -36,27 +39,9 @@ const [useStore] = create<Store>((set) => {
 
   const state: Store['state'] = {
     article: {
-      tokens: [
-        { type: 'text', value: 'after' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'a' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'long' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'time' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'ago' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'in' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'a' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'galaxy' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'far' },
-        { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'way...' },
-      ],
+      tokens: tokenize(
+        'whenever I see girls and boys, selling lanterns on the street...'
+      ),
     },
     session: {
       startedAt: null,
@@ -65,7 +50,7 @@ const [useStore] = create<Store>((set) => {
       value: '',
       tokenIndex: 0,
       charIndex: 0,
-      /* isAccurate: true, */
+      isAccurate: true,
       finishedTokens: [],
       /* finished: [ { accurate: true }, { accurate: false }], */
     },
@@ -74,6 +59,8 @@ const [useStore] = create<Store>((set) => {
   const actions: Store['actions'] = {
     setInputValue: (value) => {
       update(({ state }) => {
+        const token = state.article.tokens[state.currentInput.tokenIndex]
+
         // Start if not startedd
         if (!state.session.startedAt) {
           state.session.startedAt = new Date()
@@ -85,7 +72,16 @@ const [useStore] = create<Store>((set) => {
           return
         }
 
-        // TODO: check accuracy
+        if (
+          token &&
+          token.value &&
+          token.value.substr(0, value.length) !== value
+        ) {
+          state.currentInput.isAccurate = false
+        } else {
+          state.currentInput.isAccurate = true
+        }
+
         state.currentInput.value = value
         state.currentInput.charIndex = value.length
       })
@@ -94,12 +90,21 @@ const [useStore] = create<Store>((set) => {
     inputWhitespace: () => {
       update(({ state }) => {
         const index = state.currentInput.tokenIndex
+        const token = state.article.tokens[index]
+
+        // Check for accuracy
+        let isAccurate = token && state.currentInput.value === token.value
+
+        // Mark as done
+        state.currentInput.finishedTokens[index] = {
+          isAccurate: !!isAccurate,
+        }
 
         // TODO: Skip over any whitespace nodes
         state.currentInput.tokenIndex += 2
         state.currentInput.charIndex = -1
         state.currentInput.value = ''
-        state.currentInput.finishedTokens[index] = { isAccurate: true }
+        state.currentInput.isAccurate = true
       })
     },
   }

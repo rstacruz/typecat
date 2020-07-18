@@ -9,7 +9,11 @@ const NBSP = String.fromCharCode(160)
  * Token that the user is typing at
  */
 
-export function ActiveTextToken(props: { token: Token; charIndex: number }) {
+export function ActiveTextToken(props: {
+  token: Token
+  charIndex: number
+  isAccurate: boolean
+}) {
   const { token, charIndex } = props
   const value = token.value.replace(/ /g, NBSP)
 
@@ -18,8 +22,12 @@ export function ActiveTextToken(props: { token: Token; charIndex: number }) {
       ? ['', value]
       : [value.substr(0, charIndex), value.substr(charIndex)]
 
+  const { isAccurate } = props
+
   return (
-    <span className={cn(CSS.root, CSS.isActive)}>
+    <span
+      className={cn(CSS.root, CSS.isActive, !isAccurate && CSS.isActiveError)}
+    >
       {left !== '' ? <span className={CSS.left}>{left}</span> : null}
       <span className={CSS.cursor} />
       <span className={CSS.right}>{right}</span>

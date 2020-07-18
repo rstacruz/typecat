@@ -1,13 +1,17 @@
 .root {
-  @apply bg-gray-200 rounded-sm;
-  width: 380px;
+  @apply rounded-md flex-none;
+  width: 480px;
+  box-shadow: 0 1px 2px #4562, 0 8px 12px #4561, 0 24px 32px #4561;
 }
 
-.article,
-.input {
-  @apply p-4;
+.article {
+  @apply p-8;
 }
 
 .input {
   border-top: solid 1px #8882;
+}
+
+.wrap {
+  @apply flex items-center justify-center h-screen;
 }

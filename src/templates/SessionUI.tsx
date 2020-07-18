@@ -5,14 +5,16 @@ import CSS from './AppPage/SessionUI/SessionUI.module.css'
 
 function SessionUI() {
   return (
-    <div className={CSS.root}>
-      <div className={CSS.article}>
-        <TextDisplay />
-      </div>
+    <div className={CSS.wrap}>
+      <label className={CSS.root}>
+        <div className={CSS.article}>
+          <TextDisplay />
+        </div>
 
-      <div className={CSS.input}>
-        <InputField />
-      </div>
+        <div className={CSS.input}>
+          <InputField />
+        </div>
+      </label>
     </div>
   )
 }

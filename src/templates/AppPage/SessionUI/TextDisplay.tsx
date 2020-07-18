@@ -1,5 +1,5 @@
 import React from 'react'
-import useStore, { Token } from './useStore'
+import useStore from './useStore'
 import {
   ActiveTextToken,
   WhitespaceToken,
@@ -14,14 +14,16 @@ export function TextDisplay() {
 
   return (
     <div className={CSS.root}>
-      {tokens.map((token: Token, tokenIndex: number) => {
+      {tokens.map((token, tokenIndex) => {
+        if (!token) return null
+
         const key = tokenIndex
         const isActive = state.currentInput.tokenIndex === tokenIndex
         const finishedStatus = state.currentInput.finishedTokens[tokenIndex]
 
         if (isActive) {
-          const charIndex = state.currentInput.charIndex
-          return <ActiveTextToken {...{ key, token, charIndex }} />
+          const { isAccurate, charIndex } = state.currentInput
+          return <ActiveTextToken {...{ key, token, charIndex, isAccurate }} />
         }
 
         if (token.type === 'whitespace') {

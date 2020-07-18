@@ -1,20 +1,35 @@
 .root {
-  @apply inline-block;
+  @apply inline-block relative;
 }
 
 .isActive {
 }
 
-.isDone {
-  @apply text-green-500;
+.isDone,
+.isDoneError {
+  @apply text-gray-500;
 }
 
-.isDoneError {
+.isDoneError::before {
+  content: '';
+  @apply block absolute bg-red-400;
+  opacity: 0.5;
+  top: 55%;
+  left: -0.125rem;
+  right: -0.125rem;
+  height: 0.125rem;
+}
+
+.isActiveError {
+  @apply bg-red-100;
+}
+
+.isActiveError .left {
   @apply text-red-500;
 }
 
 .left {
-  @apply text-blue-500;
+  @apply text-green-500;
 }
 
 .right {
@@ -25,23 +40,23 @@
 }
 
 .cursor::before {
-  @apply absolute inset-0;
+  @apply absolute bg-green-500;
   content: '';
-  margin-top: -1rem;
-  margin-bottom: -0.5rem;
-  width: 2px;
-  background: theme('colors.blue.500');
+  width: 0.7em;
+  bottom: -0.5rem;
+  height: 0.125rem;
   animation: blink 500ms linear infinite;
+}
+
+.isActiveError .cursor::before {
+  @apply bg-red-500;
 }
 
 @keyframes blink {
   0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
+    opacity: 0.5;
   }
   100% {
-    opacity: 0;
+    opacity: 0.25;
   }
 }
