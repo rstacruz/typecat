@@ -11,6 +11,7 @@ export type Store = {
     article: {
       tokens: Token[]
       currentToken: 0
+      characterIndex: 0
     }
     session: { startedAt: Date | null }
     input: { value: string }
@@ -25,13 +26,28 @@ const [useStore] = create<Store>((set) => {
   const state: Store['state'] = {
     article: {
       tokens: [
-        { type: 'text', value: 'hello' },
+        { type: 'text', value: 'after' },
         { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'there,' },
+        { type: 'text', value: 'a' },
         { type: 'whitespace', value: ' ' },
-        { type: 'text', value: 'world' },
+        { type: 'text', value: 'long' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'time' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'ago' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'in' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'a' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'galaxy' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'far' },
+        { type: 'whitespace', value: ' ' },
+        { type: 'text', value: 'way...' },
       ],
       currentToken: 0,
+      characterIndex: 0,
     },
     session: {
       startedAt: null,
