@@ -8,9 +8,8 @@ export function InputField() {
     <input
       autoFocus
       type='text'
-      value={state.input.value}
+      value={state.currentInput.value}
       onChange={(event) => {
-        console.log('change', event)
         actions.setInputValue(event.target.value)
       }}
       onKeyPress={(event) => {

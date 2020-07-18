@@ -8,11 +8,11 @@ const NBSP = String.fromCharCode(160)
 export function TextToken(props: { token: Token; index: number }) {
   const { token } = props
   const { state } = useStore()
-  const isActive = state.article.currentToken === props.index
-  const isDone = state.article.currentToken > props.index
+  const isActive = state.currentInput.currentToken === props.index
+  const isDone = state.currentInput.currentToken > props.index
 
   const value = token.value.replace(/ /g, NBSP)
-  const charIndex = state.article.currentChar
+  const charIndex = state.currentInput.currentChar
 
   if (token.type === 'whitespace') {
     return <span>{value}</span>
