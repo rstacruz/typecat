@@ -3,5 +3,41 @@
 }
 
 .isActive {
-  text-decoration: underline;
+}
+
+.isDone {
+  @apply text-green-500;
+}
+
+.left {
+  @apply text-blue-500;
+}
+
+.right {
+}
+
+.cursor {
+  @apply inline-block relative;
+}
+
+.cursor::before {
+  @apply absolute inset-0;
+  content: '';
+  margin-top: -1rem;
+  margin-bottom: -0.5rem;
+  width: 2px;
+  background: theme('colors.blue.500');
+  animation: blink 500ms linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

@@ -10,14 +10,16 @@ export type Store = {
   state: {
     article: {
       tokens: Token[]
-      currentToken: 0
-      characterIndex: 0
+      currentToken: number
+      /** -1 if the next is to be ignored */
+      currentChar: number
     }
     session: { startedAt: Date | null }
     input: { value: string }
   }
   actions: {
     setInputValue: (value: string) => void
+    inputWhitespace: () => void
   }
 }
 
@@ -47,7 +49,7 @@ const [useStore] = create<Store>((set) => {
         { type: 'text', value: 'way...' },
       ],
       currentToken: 0,
-      characterIndex: 0,
+      currentChar: 0,
     },
     session: {
       startedAt: null,
@@ -62,7 +64,22 @@ const [useStore] = create<Store>((set) => {
           state.session.startedAt = new Date()
         }
 
-        state.input.value = value
+        // Just pressed whitespace, ignore the whitespace that was presed
+        if (state.article.currentChar === -1) {
+          state.article.currentChar = 0
+        } else {
+          state.input.value = value
+          state.article.currentChar = value.length
+        }
+      })
+    },
+
+    inputWhitespace: () => {
+      update(({ state }) => {
+        // Skip over any whitespace nodes
+        state.article.currentToken += 2
+        state.article.currentChar = -1
+        state.input.value = ''
       })
     },
   }
