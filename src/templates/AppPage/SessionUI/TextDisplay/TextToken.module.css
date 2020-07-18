@@ -9,6 +9,10 @@
   @apply text-green-500;
 }
 
+.isDoneError {
+  @apply text-red-500;
+}
+
 .left {
   @apply text-blue-500;
 }

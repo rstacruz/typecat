@@ -1,6 +1,11 @@
 import React from 'react'
 import useStore, { Token } from './useStore'
-import TextToken from './TextDisplay/TextToken'
+import {
+  ActiveTextToken,
+  WhitespaceToken,
+  FutureToken,
+  PastToken,
+} from './TextDisplay/TextToken'
 import CSS from './TextDisplay/TextDisplay.module.css'
 
 export function TextDisplay() {
@@ -9,8 +14,25 @@ export function TextDisplay() {
 
   return (
     <div className={CSS.root}>
-      {tokens.map((token: Token, index: number) => {
-        return <TextToken key={index} {...{ token, index }} />
+      {tokens.map((token: Token, tokenIndex: number) => {
+        const key = tokenIndex
+        const isActive = state.currentInput.tokenIndex === tokenIndex
+        const finishedStatus = state.currentInput.finishedTokens[tokenIndex]
+
+        if (isActive) {
+          const charIndex = state.currentInput.charIndex
+          return <ActiveTextToken {...{ key, token, charIndex }} />
+        }
+
+        if (token.type === 'whitespace') {
+          return <WhitespaceToken {...{ key, value: token.value }} />
+        }
+
+        if (finishedStatus) {
+          return <PastToken {...{ key, value: token.value, finishedStatus }} />
+        }
+
+        return <FutureToken {...{ key, value: token.value }} />
       })}
     </div>
   )

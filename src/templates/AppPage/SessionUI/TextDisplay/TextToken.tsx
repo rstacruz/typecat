@@ -1,41 +1,65 @@
 import React from 'react'
-import useStore, { Token } from '../useStore'
+import { Token, TokenStatus } from '../useStore'
 import CSS from './TextToken.module.css'
 import cn from 'classnames'
 
 const NBSP = String.fromCharCode(160)
 
-export function TextToken(props: { token: Token; index: number }) {
-  const { token, index } = props
-  const { state } = useStore()
-  const isActive = state.currentInput.tokenIndex === index
-  const finishedStatus = state.currentInput.finishedTokens[index]
+/**
+ * Token that the user is typing at
+ */
 
+export function ActiveTextToken(props: { token: Token; charIndex: number }) {
+  const { token, charIndex } = props
   const value = token.value.replace(/ /g, NBSP)
-  const charIndex = state.currentInput.charIndex
 
-  if (token.type === 'whitespace') {
-    return <span>{value}</span>
-  } else if (finishedStatus) {
-    // Past word
-    return <span className={cn(CSS.root, CSS.isDone)}>{value}</span>
-  } else if (!isActive) {
-    // Future word
-    return <span className={cn(CSS.root)}>{value}</span>
-  } else {
-    const [left, right] =
-      charIndex <= 0
-        ? ['', value]
-        : [value.substr(0, charIndex), value.substr(charIndex)]
+  const [left, right] =
+    charIndex <= 0
+      ? ['', value]
+      : [value.substr(0, charIndex), value.substr(charIndex)]
 
-    return (
-      <span className={cn(CSS.root, CSS.isActive)}>
-        {left !== '' ? <span className={CSS.left}>{left}</span> : null}
-        <span className={CSS.cursor} />
-        <span className={CSS.right}>{right}</span>
-      </span>
-    )
-  }
+  return (
+    <span className={cn(CSS.root, CSS.isActive)}>
+      {left !== '' ? <span className={CSS.left}>{left}</span> : null}
+      <span className={CSS.cursor} />
+      <span className={CSS.right}>{right}</span>
+    </span>
+  )
 }
 
-export default TextToken
+/**
+ * Whitespace
+ */
+
+export function WhitespaceToken(props: { value: string }) {
+  const newValue = props.value.replace(/ /g, NBSP)
+  return <span>{newValue}</span>
+}
+
+/**
+ * Token yet to be typed
+ */
+
+export function FutureToken(props: { value: string }) {
+  return <span className={cn(CSS.root)}>{props.value}</span>
+}
+
+/**
+ * Token that's already been typed
+ */
+
+export function PastToken(props: {
+  value: string
+  finishedStatus: TokenStatus
+}) {
+  return (
+    <span
+      className={cn(
+        CSS.root,
+        props.finishedStatus.isAccurate ? CSS.isDone : CSS.isDoneError
+      )}
+    >
+      {props.value}
+    </span>
+  )
+}
