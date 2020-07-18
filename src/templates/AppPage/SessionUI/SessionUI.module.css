@@ -9,9 +9,28 @@
 }
 
 .input {
+  @apply flex items-center;
   border-top: solid 1px #8884;
 }
 
 .wrap {
   @apply flex items-center justify-center h-screen;
+}
+
+.ongoingInput {
+  composes: input;
+  background: #8881;
+}
+
+.inputField {
+  @apply flex-1;
+}
+
+.timer {
+  @apply flex-none px-4;
+}
+
+.finishedInput {
+  composes: input;
+  @apply p-4 bg-green-100;
 }

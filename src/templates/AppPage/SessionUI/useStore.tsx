@@ -17,7 +17,18 @@ export type Store = {
       /** We'll allow null to catch any possible OOB checks */
       tokens: (Token | null)[]
     }
-    session: { startedAt: Date | null }
+    session:
+      | {
+          status: 'ongoing'
+          startedAt: Date | null
+        }
+      | {
+          status: 'idle'
+        }
+      | {
+          status: 'finished'
+          startedAt: Date | null
+        }
     currentInput: {
       value: string
       /** Index of the current token */
@@ -53,7 +64,7 @@ const [useStore] = create<Store>((set) => {
       tokens: tokenize(STRING),
     },
     session: {
-      startedAt: null,
+      status: 'idle',
     },
     currentInput: {
       value: '',
@@ -70,9 +81,9 @@ const [useStore] = create<Store>((set) => {
       update(({ state }) => {
         const token = state.article.tokens[state.currentInput.tokenIndex]
 
-        // Start if not startedd
-        if (!state.session.startedAt) {
-          state.session.startedAt = new Date()
+        // Start if not started
+        if (state.session.status === 'idle') {
+          state.session = { status: 'ongoing', startedAt: new Date() }
         }
 
         // Just pressed whitespace, ignore the whitespace that was presed
@@ -98,6 +109,9 @@ const [useStore] = create<Store>((set) => {
 
     inputWhitespace: (options = {}) => {
       update(({ state }) => {
+        // Only if a session's started
+        if (state.session.status !== 'ongoing') return
+
         const index = state.currentInput.tokenIndex
         const token = state.article.tokens[index]
 
@@ -109,8 +123,17 @@ const [useStore] = create<Store>((set) => {
           isAccurate: !!isAccurate,
         }
 
+        // Are we done?
+        const nextIndex = state.currentInput.tokenIndex + 2
+        if (nextIndex > state.article.tokens.length) {
+          state.session = {
+            status: 'finished',
+            startedAt: state.session.startedAt,
+          }
+        }
+
         // TODO: Skip over any whitespace nodes
-        state.currentInput.tokenIndex += 2
+        state.currentInput.tokenIndex = nextIndex
         state.currentInput.charIndex = options.skipNext ? -1 : 0
         state.currentInput.value = ''
         state.currentInput.isAccurate = true
