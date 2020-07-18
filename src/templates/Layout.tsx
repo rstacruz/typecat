@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import './Layout/css.ts'
+import './AppPage/Layout/css'
 
 function Layout(props: { children: React.ReactNode }) {
   return (

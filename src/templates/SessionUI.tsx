@@ -1,7 +1,7 @@
 import React from 'react'
-import TextDisplay from './TextDisplay'
-import InputField from './InputField'
-import CSS from './SessionUI.module.css'
+import TextDisplay from './AppPage/SessionUI/TextDisplay'
+import InputField from './AppPage/SessionUI/InputField'
+import CSS from './AppPage/SessionUI/SessionUI.module.css'
 
 function SessionUI() {
   return (

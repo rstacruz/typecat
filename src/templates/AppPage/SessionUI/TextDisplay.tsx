@@ -1,7 +1,7 @@
 import React from 'react'
-import useStore, { Token } from './AppPage/useStore'
-import TextToken from './TextToken'
-import CSS from './TextDisplay.module.css'
+import useStore, { Token } from './useStore'
+import TextToken from './TextDisplay/TextToken'
+import CSS from './TextDisplay/TextDisplay.module.css'
 
 export function TextDisplay() {
   const { state } = useStore()

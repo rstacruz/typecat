@@ -1,5 +1,5 @@
 import React from 'react'
-import useStore, { Token } from './AppPage/useStore'
+import useStore, { Token } from '../useStore'
 import CSS from './TextToken.module.css'
 import cn from 'classnames'
 

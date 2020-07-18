@@ -1,5 +1,5 @@
 import React from 'react'
-import useStore from './AppPage/useStore'
+import useStore from './useStore'
 
 export function InputField() {
   const { state, actions } = useStore()
