@@ -48,7 +48,9 @@ export type Store = {
 /* const STRING = */
 /*   'whenever I see girls and boys, selling lanterns on the street...' */
 
-const STRING = `function SpanComponent(props: {
+const STRING = `import React from 'react';
+
+function SpanComponent(props: {
   children: React.ReactNode
 }) {
   return (
@@ -114,9 +116,16 @@ const [useStore] = create<Store>((set) => {
 
         const index = state.currentInput.tokenIndex
         const token = state.article.tokens[index]
+        const currentValue = state.currentInput.value
+
+        // Double enter
+        if (currentValue === '') {
+          state.currentInput.charIndex = options.skipNext ? -1 : 0
+          return
+        }
 
         // Check for accuracy
-        let isAccurate = token && state.currentInput.value === token.value
+        let isAccurate = token && token.value === currentValue
 
         // Mark as done
         state.currentInput.finishedTokens[index] = {
