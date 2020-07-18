@@ -1,7 +1,3 @@
-import React from 'react'
+import AppPage from '../templates/AppPage'
 
-function IndexPage(props: {}) {
-  return <div>hello</div>
-}
-
-export default IndexPage
+export default AppPage
