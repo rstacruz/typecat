@@ -33,7 +33,6 @@ export type Store = {
       value: string
       /** Index of the current token */
       tokenIndex: number
-      /** -1 if the next is to be ignored */
       charIndex: number
       isAccurate: boolean
       finishedTokens: (TokenStatus | null | void)[]
@@ -45,18 +44,16 @@ export type Store = {
   }
 }
 
-/* const STRING = */
-/*   'whenever I see girls and boys, selling lanterns on the street...' */
+/* const STRING = `whenever I see girls and boys, selling lanterns on the street. I remember the child, in the manger as he sleeps` */
+const STRING = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early`
 
-const STRING = `import React from 'react';
+/* const STRING = `import React from 'react'; */
 
-function SpanComponent(props: {
-  children: React.ReactNode
-}) {
-  return (
-    <span>{props.children}</span>
-  );
-}`
+/* function SpanComponent(props: { */
+/*   children?: React.ReactNode */
+/* }) { */
+/*   return <span>{props.children || null}</span>; */
+/* }` */
 
 const [useStore] = create<Store>((set) => {
   const update = (fn: (store: Store) => any) => set(produce(fn))
@@ -120,7 +117,7 @@ const [useStore] = create<Store>((set) => {
 
         // Double enter
         if (currentValue === '') {
-          state.currentInput.charIndex = options.skipNext ? -1 : 0
+          state.currentInput.charIndex = 0
           return
         }
 
@@ -143,7 +140,7 @@ const [useStore] = create<Store>((set) => {
 
         // TODO: Skip over any whitespace nodes
         state.currentInput.tokenIndex = nextIndex
-        state.currentInput.charIndex = options.skipNext ? -1 : 0
+        state.currentInput.charIndex = 0
         state.currentInput.value = ''
         state.currentInput.isAccurate = true
       })

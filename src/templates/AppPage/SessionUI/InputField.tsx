@@ -19,8 +19,10 @@ export function InputField() {
       }}
       onKeyPress={(event) => {
         if (event.key === ' ' || event.key === '\t') {
-          actions.inputWhitespace({ skipNext: true })
+          event.preventDefault()
+          actions.inputWhitespace({ skipNext: false })
         } else if (event.key === 'Enter') {
+          event.preventDefault()
           actions.inputWhitespace({ skipNext: false })
         }
       }}
