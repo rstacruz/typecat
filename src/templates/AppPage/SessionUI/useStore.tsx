@@ -45,15 +45,15 @@ export type Store = {
 }
 
 /* const STRING = `whenever I see girls and boys, selling lanterns on the street. I remember the child, in the manger as he sleeps` */
-const STRING = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early`
+/* const STRING = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early` */
 
-/* const STRING = `import React from 'react'; */
+const STRING = `import React from 'react';
 
-/* function SpanComponent(props: { */
-/*   children?: React.ReactNode */
-/* }) { */
-/*   return <span>{props.children || null}</span>; */
-/* }` */
+function SpanComponent(props: {
+  children?: React.ReactNode
+}) {
+  return <span>{props.children || null}</span>;
+}`
 
 const [useStore] = create<Store>((set) => {
   const update = (fn: (store: Store) => any) => set(produce(fn))

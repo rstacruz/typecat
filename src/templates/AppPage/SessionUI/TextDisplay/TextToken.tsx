@@ -51,7 +51,8 @@ export function WhitespaceToken(props: { value: string }) {
   const Frag = React.Fragment
   return (
     <span>
-      {props.value.split('').map((space, index) => {
+      {props.value.split(/((?: +)|\n)/).map((space, index) => {
+        if (!space.length) return null
         if (space === ' ') return <Frag key={index}> </Frag>
         if (space === '\n') return <br key={index} />
         return <Frag key={index}>{space.replace(/ /g, NBSP)}</Frag>
