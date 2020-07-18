@@ -1,7 +1,7 @@
 .root {
   @apply rounded-md flex-none;
   width: 480px;
-  box-shadow: 0 1px 2px #4562, 0 8px 12px #4561, 0 24px 32px #4561;
+  box-shadow: 0 1px 2px #4564, 0 8px 12px #4561, 0 24px 32px #4561;
 }
 
 .article {
@@ -9,7 +9,7 @@
 }
 
 .input {
-  border-top: solid 1px #8882;
+  border-top: solid 1px #8884;
 }
 
 .wrap {

@@ -30,18 +30,27 @@ export type Store = {
   }
   actions: {
     setInputValue: (value: string) => void
-    inputWhitespace: () => void
+    inputWhitespace: (options: { skipNext?: boolean }) => void
   }
 }
+
+/* const STRING = */
+/*   'whenever I see girls and boys, selling lanterns on the street...' */
+
+const STRING = `function SpanComponent(props: {
+  children: React.ReactNode
+}) {
+  return (
+    <span>{props.children}</span>
+  );
+}`
 
 const [useStore] = create<Store>((set) => {
   const update = (fn: (store: Store) => any) => set(produce(fn))
 
   const state: Store['state'] = {
     article: {
-      tokens: tokenize(
-        'whenever I see girls and boys, selling lanterns on the street...'
-      ),
+      tokens: tokenize(STRING),
     },
     session: {
       startedAt: null,
@@ -87,7 +96,7 @@ const [useStore] = create<Store>((set) => {
       })
     },
 
-    inputWhitespace: () => {
+    inputWhitespace: (options = {}) => {
       update(({ state }) => {
         const index = state.currentInput.tokenIndex
         const token = state.article.tokens[index]
@@ -102,7 +111,7 @@ const [useStore] = create<Store>((set) => {
 
         // TODO: Skip over any whitespace nodes
         state.currentInput.tokenIndex += 2
-        state.currentInput.charIndex = -1
+        state.currentInput.charIndex = options.skipNext ? -1 : 0
         state.currentInput.value = ''
         state.currentInput.isAccurate = true
       })

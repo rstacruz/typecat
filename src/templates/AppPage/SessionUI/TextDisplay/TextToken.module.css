@@ -3,6 +3,7 @@
 }
 
 .isActive {
+  @apply bg-green-100;
 }
 
 .isDone,
@@ -41,11 +42,11 @@
 
 .cursor::before {
   @apply absolute bg-green-500;
-  content: '';
-  width: 0.7em;
-  bottom: -0.5rem;
-  height: 0.125rem;
-  animation: blink 500ms linear infinite;
+  content: ' ';
+  width: 0.6em;
+  top: -1em;
+  bottom: -0.25em;
+  animation: blink 500ms linear infinite alternate;
 }
 
 .isActiveError .cursor::before {

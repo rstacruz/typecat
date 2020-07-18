@@ -40,8 +40,17 @@ export function ActiveTextToken(props: {
  */
 
 export function WhitespaceToken(props: { value: string }) {
-  const newValue = props.value.replace(/ /g, NBSP)
-  return <span>{newValue}</span>
+  /* const newValue = props.value.replace(/ /g, NBSP) */
+  /* return <span>{newValue}</span> */
+  return (
+    <span>
+      {props.value.split('').map((space) => {
+        if (space === ' ') return NBSP
+        if (space === '\n') return <br />
+        return space
+      })}
+    </span>
+  )
 }
 
 /**
