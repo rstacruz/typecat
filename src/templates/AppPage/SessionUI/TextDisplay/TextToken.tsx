@@ -24,8 +24,16 @@ export function ActiveTextToken(props: {
 
   const { isAccurate } = props
 
+  const spanRef = React.useRef<HTMLSpanElement>(null)
+
+  React.useLayoutEffect(() => {
+    if (!spanRef.current) return
+    spanRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [])
+
   return (
     <span
+      ref={spanRef}
       className={cn(CSS.root, CSS.isActive, !isAccurate && CSS.isActiveError)}
     >
       {left !== '' ? <span className={CSS.left}>{left}</span> : null}
@@ -44,9 +52,9 @@ export function WhitespaceToken(props: { value: string }) {
   return (
     <span>
       {props.value.split('').map((space, index) => {
-        if (space === ' ') return <Frag key={index}>{NBSP}</Frag>
+        if (space === ' ') return <Frag key={index}> </Frag>
         if (space === '\n') return <br key={index} />
-        return <Frag key={index}>{space}</Frag>
+        return <Frag key={index}>{space.replace(/ /g, NBSP)}</Frag>
       })}
     </span>
   )

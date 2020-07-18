@@ -12,7 +12,9 @@ function SessionUI() {
     <div className={CSS.wrap}>
       <label className={CSS.root}>
         <div className={CSS.article}>
-          <TextDisplay />
+          <div className={CSS.articleContent}>
+            <TextDisplay />
+          </div>
         </div>
 
         {state.session.status === 'finished' ? (

@@ -40,12 +40,12 @@ export type Store = {
   }
   actions: {
     setInputValue: (value: string) => void
-    inputWhitespace: (options: { skipNext?: boolean }) => void
+    inputWhitespace: () => void
   }
 }
 
 /* const STRING = `whenever I see girls and boys, selling lanterns on the street. I remember the child, in the manger as he sleeps` */
-const STRING = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early`
+const STRING = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early`
 
 /* const STRING = `import React from 'react'; */
 
@@ -85,12 +85,6 @@ const [useStore] = create<Store>((set) => {
           state.session = { status: 'ongoing', startedAt: new Date() }
         }
 
-        // Just pressed whitespace, ignore the whitespace that was presed
-        if (state.currentInput.charIndex === -1) {
-          state.currentInput.charIndex = 0
-          return
-        }
-
         if (
           token &&
           token.value &&
@@ -106,7 +100,7 @@ const [useStore] = create<Store>((set) => {
       })
     },
 
-    inputWhitespace: (options = {}) => {
+    inputWhitespace: () => {
       update(({ state }) => {
         // Only if a session's started
         if (state.session.status !== 'ongoing') return

@@ -5,7 +5,13 @@
 }
 
 .article {
-  @apply p-8;
+  max-height: 16rem; /* 24rem */
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.articleContent {
+  @apply m-8;
 }
 
 .input {
