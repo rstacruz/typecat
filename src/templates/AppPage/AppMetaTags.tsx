@@ -1,4 +1,4 @@
-import MetaTags, { MetaTagsProps } from '../meta-helper/MetaTags'
+import MetaTags, { MetaTagsProps } from '../../meta-helper/MetaTags'
 import Helmet from 'next/head'
 
 const AppMetaTags = (props: Partial<MetaTagsProps>) => {

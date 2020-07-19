@@ -1,7 +1,7 @@
 import React from 'react'
-import SessionUI from './SessionUI'
-import Layout from './Layout'
-import useStore from './AppPage/SessionUI/useStore'
+import SessionUI from './AppPage/SessionUI'
+import Layout from './shared/Layout'
+import useStore from './shared/useStore'
 
 function AppPage() {
   const { actions } = useStore()

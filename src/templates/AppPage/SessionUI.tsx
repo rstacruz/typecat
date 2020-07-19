@@ -1,10 +1,10 @@
 import React from 'react'
-import TextDisplay from './AppPage/SessionUI/TextDisplay'
-import InputField from './AppPage/SessionUI/InputField'
-import CSS from './AppPage/SessionUI/SessionUI.module.css'
-import useStore from './AppPage/SessionUI/useStore'
-import SessionTimer from './SessionTimer'
-import MockTextDisplay from './AppPage/SessionUI/MockTextDisplay'
+import TextDisplay from './SessionUI/TextDisplay'
+import InputField from './SessionUI/InputField'
+import CSS from './SessionUI/SessionUI.module.css'
+import useStore from '../shared/useStore'
+import SessionTimer from './SessionUI/SessionTimer'
+import MockTextDisplay from './SessionUI/MockTextDisplay'
 
 function SessionUI() {
   const { state } = useStore()

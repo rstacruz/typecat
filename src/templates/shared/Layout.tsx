@@ -1,5 +1,5 @@
 import React from 'react'
-import AppMetaTags from './AppMetaTags'
+import AppMetaTags from '../AppPage/AppMetaTags'
 
 function Layout(props: { children: React.ReactNode }) {
   return (

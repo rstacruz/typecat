@@ -1,7 +1,7 @@
 import create from 'zustand'
 import produce from 'immer'
-import tokenize from './tokenize'
-import generateEnglish from './useStore/generateEnglish'
+import tokenize from '../AppPage/SessionUI/TextDisplay/useStore/tokenize'
+import generateEnglish from '../AppPage/SessionUI/TextDisplay/useStore/generateEnglish'
 
 export type Token = {
   type: string
