@@ -1,0 +1,63 @@
+.root {
+  @apply inline-block relative;
+}
+
+.isActive {
+  @apply bg-green-100;
+}
+
+.isDone,
+.isDoneError {
+  @apply text-gray-500;
+}
+
+.isDoneError::before {
+  content: '';
+  @apply block absolute bg-red-400;
+  opacity: 0.5;
+  top: 55%;
+  left: -0.125rem;
+  right: -0.125rem;
+  height: 0.125rem;
+}
+
+.isActiveError {
+  @apply bg-red-100;
+}
+
+.isActiveError .left {
+  @apply text-red-500;
+}
+
+.left {
+  @apply text-green-500;
+}
+
+.right {
+}
+
+.cursor {
+  @apply inline-block relative;
+}
+
+.cursor::before {
+  @apply absolute bg-green-500;
+  content: ' ';
+  width: 0.6em;
+  top: -1em;
+  bottom: -0.25em;
+  animation: blink 500ms linear infinite alternate;
+}
+
+.isActiveError .cursor::before {
+  @apply bg-red-500;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}

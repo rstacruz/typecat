@@ -1,5 +1,3 @@
-function IndexPage(props: {}) {
-  return <div>hey</div>;
-}
+import IndexPage from '../src/templates/AppPage'
 
-export default IndexPage;
+export default IndexPage

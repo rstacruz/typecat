@@ -1,0 +1,49 @@
+.root {
+  @apply rounded-lg flex-none overflow-hidden;
+  width: 560px;
+  box-shadow: 0 1px 2px #4564, 0 8px 12px #44556609, 0 24px 32px #44556609;
+}
+
+.article {
+  max-height: 16rem; /* 24rem */
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-right: -1.25rem; /* compensate for scrollbar */
+}
+
+.articleContent {
+  @apply m-8;
+}
+
+.input {
+  @apply flex items-center m-1 mt-0 rounded-lg bg-gray-100;
+}
+
+.idleInput {
+  composes: input;
+}
+
+.wrap {
+  @apply flex items-center justify-center h-screen;
+}
+
+.ongoingInput {
+  composes: input;
+
+  &:focus-within {
+    @apply bg-gray-200;
+  }
+}
+
+.inputField {
+  @apply flex-1;
+}
+
+.timer {
+  @apply flex-none px-4;
+}
+
+.finishedInput {
+  composes: input;
+  @apply p-4 bg-green-100;
+}

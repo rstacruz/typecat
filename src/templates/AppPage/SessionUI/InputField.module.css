@@ -1,0 +1,9 @@
+.input {
+  @apply bg-transparent border-0 w-full p-4;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1em;
+}
+
+.input::placeholder {
+  @apply text-gray-500;
+}
