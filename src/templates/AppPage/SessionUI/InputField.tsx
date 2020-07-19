@@ -2,13 +2,24 @@ import React from 'react'
 import useStore from './useStore'
 import CSS from './InputField.module.css'
 
-export function InputField() {
+export function InputField(props: { disabled?: boolean }) {
   const { state, actions } = useStore()
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  React.useEffect(() => {
+    if (!inputRef.current) return
+    if (props.disabled) return
+
+    inputRef.current.focus()
+  }, [props.disabled])
 
   return (
     <input
+      ref={inputRef}
       className={CSS.input}
-      autoFocus
+      autoComplete={'off'}
+      disabled={props.disabled}
+      autoCapitalize={'off'}
       type='text'
       placeholder={
         state.session.status === 'ready' ? 'Type something to start' : undefined

@@ -4,6 +4,7 @@ import InputField from './AppPage/SessionUI/InputField'
 import CSS from './AppPage/SessionUI/SessionUI.module.css'
 import useStore from './AppPage/SessionUI/useStore'
 import SessionTimer from './SessionTimer'
+import MockTextDisplay from './AppPage/SessionUI/MockTextDisplay'
 
 function SessionUI() {
   const { state } = useStore()
@@ -13,7 +14,11 @@ function SessionUI() {
       <label className={CSS.root}>
         <div className={CSS.article}>
           <div className={CSS.articleContent}>
-            <TextDisplay />
+            {state.session.status === 'pending' ? (
+              <MockTextDisplay />
+            ) : (
+              <TextDisplay />
+            )}
           </div>
         </div>
 
@@ -25,6 +30,10 @@ function SessionUI() {
             <span className={CSS.timer}>
               <SessionTimer startedAt={state.session.startedAt} />
             </span>
+          </div>
+        ) : state.session.status === 'pending' ? (
+          <div className={CSS.idleInput}>
+            <InputField disabled />
           </div>
         ) : (
           <div className={CSS.idleInput}>

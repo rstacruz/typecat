@@ -9,3 +9,14 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
+
+/* Local keyframes doesn't work in Next.js */
+@keyframes placeholder-swish {
+  50% {
+    background-position: 8rem 0%;
+  }
+
+  100% {
+    background-position: 8rem 0%;
+  }
+}

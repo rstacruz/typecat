@@ -1,6 +1,7 @@
 import create from 'zustand'
 import produce from 'immer'
 import tokenize from './tokenize'
+import generateEnglish from './useStore/generateEnglish'
 
 export type Token = {
   type: string
@@ -29,6 +30,9 @@ export type Store = {
           startedAt: Date | null
         }
       | {
+          status: 'pending'
+        }
+      | {
           status: 'ready'
         }
     currentInput: {
@@ -41,6 +45,7 @@ export type Store = {
     }
   }
   actions: {
+    startNewSession: () => void
     setInputValue: (value: string) => void
     inputWhitespace: () => void
   }
@@ -48,55 +53,48 @@ export type Store = {
 
 export type State = Store['state']
 
-const STRING = generateEnglish()
-
-function generateEnglish(offset: number = 0) {
-  const words = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early`.split(
-    ' '
-  )
-
-  const count = 20
-
-  return words.slice(offset, offset + count).join(' ')
-}
-
-/* const STRING = `import React from 'react'; */
-
-/* function SpanComponent(props: { */
-/*   children?: React.ReactNode */
-/* }) { */
-/*   return <span>{props.children || null}</span>; */
-/* }` */
-
 const [useStore] = create<Store>((set) => {
   const update = (fn: (store: Store) => any) => set(produce(fn))
 
-  const state: Store['state'] = {
+  const state: State = {
     article: {
-      tokens: tokenize(STRING),
+      tokens: [],
     },
+
     results: [],
+
     session: {
-      status: 'ready',
+      status: 'pending',
     },
+
     currentInput: {
       value: '',
       tokenIndex: 0,
       charIndex: 0,
       isAccurate: true,
       finishedTokens: [],
-      /* finished: [ { accurate: true }, { accurate: false }], */
     },
   }
 
   const actions: Store['actions'] = {
-    setInputValue: (value) => {
+    startNewSession() {
+      update(({ state }) => {
+        resetSession(state)
+        setTimeout(() => {
+          update(({ state }) => {
+            loadNewSession(state)
+          })
+        }, 300)
+      })
+    },
+
+    setInputValue(value) {
       update(({ state }) => {
         setInputValue(state, value)
       })
     },
 
-    inputWhitespace: () => {
+    inputWhitespace() {
       update(({ state }) => {
         // Only if a session's started
         if (state.session.status !== 'ongoing') return
@@ -124,6 +122,7 @@ const [useStore] = create<Store>((set) => {
         if (nextIndex > state.article.tokens.length) {
           generateResults(state)
           resetSession(state)
+          loadNewSession(state)
         } else {
           // TODO: Skip over any whitespace nodes
           state.currentInput.tokenIndex = nextIndex
@@ -153,6 +152,20 @@ function generateResults(state: State): void {
  */
 
 function resetSession(state: State): void {
+  state.session = { status: 'pending' }
+
+  state.currentInput = {
+    tokenIndex: 0,
+    charIndex: 0,
+    value: '',
+    isAccurate: true,
+    finishedTokens: [],
+  }
+
+  state.article.tokens = []
+}
+
+function loadNewSession(state: State): void {
   state.session = { status: 'ready' }
 
   state.currentInput = {
