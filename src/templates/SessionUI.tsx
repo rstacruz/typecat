@@ -17,11 +17,7 @@ function SessionUI() {
           </div>
         </div>
 
-        {state.session.status === 'finished' ? (
-          <div className={CSS.finishedInput}>
-            <span>124 WPM, 97% accuracy</span>
-          </div>
-        ) : state.session.status === 'ongoing' ? (
+        {state.session.status === 'ongoing' ? (
           <div className={CSS.ongoingInput}>
             <span className={CSS.inputField}>
               <InputField />
@@ -36,6 +32,26 @@ function SessionUI() {
           </div>
         )}
       </label>
+
+      <div className={CSS.results}>
+        <ResultsDisplay />
+      </div>
+    </div>
+  )
+}
+
+function ResultsDisplay() {
+  const { state } = useStore()
+  const { results } = state
+  return (
+    <div>
+      {[...results].reverse().map((result, index) => {
+        return (
+          <div key={index}>
+            {result.wpm} WPM, {Math.round(result.accuracy * 100)}% accuracy
+          </div>
+        )
+      })}
     </div>
   )
 }

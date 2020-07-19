@@ -11,7 +11,7 @@ export function InputField() {
       autoFocus
       type='text'
       placeholder={
-        state.session.status === 'idle' ? 'Type something to start' : undefined
+        state.session.status === 'ready' ? 'Type something to start' : undefined
       }
       value={state.currentInput.value}
       onChange={(event) => {

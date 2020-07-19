@@ -1,3 +1,8 @@
+.wrap {
+  @apply flex flex-col items-center justify-center;
+  padding-top: 20vh;
+}
+
 .root {
   @apply flex-none overflow-hidden rounded-lg;
   width: 560px;
@@ -21,11 +26,6 @@
   composes: input;
 }
 
-.wrap {
-  @apply flex justify-center;
-  padding-top: 20vh;
-}
-
 .ongoingInput {
   composes: input;
 
@@ -45,4 +45,8 @@
 .finishedInput {
   composes: input;
   @apply p-4 bg-green-100;
+}
+
+.results {
+  @apply mt-8;
 }
