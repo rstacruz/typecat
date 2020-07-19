@@ -1,15 +1,11 @@
 import React from 'react'
-import Helmet from 'next/head'
+import AppMetaTags from './AppMetaTags'
 
 function Layout(props: { children: React.ReactNode }) {
   return (
     <>
-      <Helmet>
-        <html lang='en' />
-        <title>Type</title>
-      </Helmet>
-
-      <div>{props.children}</div>
+      <AppMetaTags title='Typecat' path='/' />
+      {props.children}
     </>
   )
 }
