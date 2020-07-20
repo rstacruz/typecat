@@ -1,4 +1,4 @@
-import { State, Result, Token } from '../useStore'
+import { State, Result, Token } from '.'
 import tokenize from './tokenize'
 import generateEnglish from './generateEnglish'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import TextDisplay from './SessionUI/TextDisplay'
 import InputField from './SessionUI/InputField'
 import CSS from './SessionUI/SessionUI.module.css'
-import useStore from './SessionUI/TextDisplay/useStore'
+import useStore from '../../store/useStore'
 import SessionTimer from './SessionUI/SessionTimer'
 import MockTextDisplay from './SessionUI/MockTextDisplay'
 

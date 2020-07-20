@@ -1,6 +1,6 @@
 import 'sanitize.css'
 import 'typeface-roboto-mono'
-import '../src/templates/AppPage/Layout/base.css'
+import '../src/css/base.css'
 
 export default function App(props: any) {
   const { Component, pageProps } = props

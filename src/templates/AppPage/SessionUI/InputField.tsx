@@ -1,5 +1,5 @@
 import React from 'react'
-import useStore from './TextDisplay/useStore'
+import useStore from '../../../store/useStore'
 import CSS from './InputField.module.css'
 
 export function InputField(props: { disabled?: boolean }) {
