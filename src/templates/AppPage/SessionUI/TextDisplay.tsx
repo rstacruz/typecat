@@ -1,5 +1,5 @@
 import React from 'react'
-import useStore from '../../shared/useStore'
+import useStore from './TextDisplay/useStore'
 import {
   ActiveTextToken,
   WhitespaceToken,

@@ -1,6 +1,6 @@
-import { State, Result, Token } from './useStore'
-import tokenize from '../AppPage/SessionUI/TextDisplay/useStore/tokenize'
-import generateEnglish from '../AppPage/SessionUI/TextDisplay/useStore/generateEnglish'
+import { State, Result, Token } from '../useStore'
+import tokenize from './tokenize'
+import generateEnglish from './generateEnglish'
 
 class Actions {
   update: any
