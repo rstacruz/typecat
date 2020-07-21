@@ -16,12 +16,15 @@ export type Result = {
   accuracy: number
 }
 
+export type Article = {
+  /** We'll allow null to catch any possible OOB checks */
+  tokens: (Token | null)[]
+}
+
 export type Store = {
   state: {
-    article: {
-      /** We'll allow null to catch any possible OOB checks */
-      tokens: (Token | null)[]
-    }
+    article: Article
+    articleQueue: Article[]
     results: (Result | null)[]
     session:
       | {
@@ -55,6 +58,8 @@ const [useStore] = create<Store>((set) => {
     article: {
       tokens: [],
     },
+
+    articleQueue: [],
 
     results: [],
 

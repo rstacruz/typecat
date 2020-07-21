@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "immer": "^7.0.5",
+    "jest": "^26.1.0",
     "next": "^9.4.4",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
@@ -21,9 +23,15 @@
     "zustand": "^2.2.3"
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^3.3.0",
     "@types/classnames": "^2.2.10",
+    "@types/jest": "^26.0.5",
     "@types/node": "^14.0.23",
     "@types/react": "^16.9.43",
+    "babel-jest": "^26.1.0",
+    "mockdate": "^3.0.2",
+    "prettier": "^2.0.5",
+    "react-test-renderer": "^16.13.1",
     "typescript": "^3.9.7"
   }
 }
