@@ -1,20 +1,50 @@
-import { State, Result, Token } from '.'
-import tokenize from './tokenize'
-import generateEnglish from './generateEnglish'
+import { State, Token, Article, Store } from '../useStore'
+import { fetchArticles } from './fetchArticles'
+import { buildResult } from './buildResult'
 
 class Actions {
-  update: any
+  update: (fn: (store: Store) => any) => void
+  set: (state: Partial<Store>) => void
+  get: () => Store
 
-  constructor(update: any) {
+  constructor(
+    update: (fn: (store: Store) => any) => void,
+    set: (state: Partial<Store>) => void,
+    get: () => Store
+  ) {
     this.update = update
+    this.set = set
+    this.get = get
   }
 
   startNewSession = (): void => {
-    this.update(({ state }) => resetSession(state))
+    this.update(({ state }) => {
+      // Clear the session and start over.
+      resetSession(state)
 
-    setTimeout(() => {
-      this.update(({ state }) => loadNewSession(state))
-    }, 300)
+      // If there is a queued article, load it in.
+      popArticleQueue(state)
+
+      // Replenish the queue by fetching remotely.
+      const needed = 2 - state.articleQueue.length
+      fetchArticles(needed).then((articles) => {
+        this.receiveArticles(articles)
+      })
+    })
+  }
+
+  receiveArticles = (articles: Article[]) => {
+    this.update(({ state }) => {
+      if (hasArticle(state)) {
+        // There's already an article loaded, so just queue the rest up
+        state.articleQueue = articles
+      } else {
+        // Its waiting for an article, so load it
+        const [article, ...tail] = articles
+        state.articleQueue = tail
+        loadArticle(state, article)
+      }
+    })
   }
 
   setInputValue = (value: string): void => {
@@ -22,11 +52,24 @@ class Actions {
   }
 
   inputWhitespace = (): void => {
-    this.update(({ state }) => inputWhitespace(state))
+    let action: ReturnType<typeof inputWhitespace>
+
+    this.update(({ state }) => {
+      action = inputWhitespace(state)
+    })
+
+    if (action?.done) {
+      this.update(({ state }) => generateResults(state))
+      this.startNewSession()
+    }
   }
 }
 
-export function inputWhitespace(state: State): void {
+/**
+ * Inputs a whitespace; check if done afterwards
+ */
+
+export function inputWhitespace(state: State): { done: true } | undefined {
   // Only if a session's started
   if (state.session.status !== 'ongoing') return
 
@@ -48,14 +91,13 @@ export function inputWhitespace(state: State): void {
     isAccurate: !!isAccurate,
   }
 
-  // Are we done?
+  // TODO: Skip over any whitespace nodes
   const nextIndex = state.currentInput.tokenIndex + 2
+
+  // Check if done.
   if (nextIndex > state.article.tokens.length) {
-    generateResults(state)
-    resetSession(state)
-    loadNewSession(state)
+    return { done: true }
   } else {
-    // TODO: Skip over any whitespace nodes
     state.currentInput.tokenIndex = nextIndex
     state.currentInput.charIndex = 0
     state.currentInput.value = ''
@@ -68,13 +110,12 @@ export function inputWhitespace(state: State): void {
  */
 
 export function generateResults(state: State): void {
-  const wpm = Math.round(60 + 30 * Math.random())
-  const result: Result = { wpm, accuracy: 0.98 }
+  const result = buildResult()
   state.results.push(result)
 }
 
 /**
- * Resets the current session.
+ * Resets the current session to the 'pending' state.
  */
 
 export function resetSession(state: State): void {
@@ -89,22 +130,6 @@ export function resetSession(state: State): void {
   }
 
   state.article.tokens = []
-}
-
-export function loadNewSession(state: State): void {
-  state.session = { status: 'ready' }
-
-  state.currentInput = {
-    tokenIndex: 0,
-    charIndex: 0,
-    value: '',
-    isAccurate: true,
-    finishedTokens: [],
-  }
-
-  state.article.tokens = tokenize(
-    generateEnglish(Math.round(Math.random() * 10))
-  )
 }
 
 /**
@@ -135,6 +160,34 @@ export function setInputValue(state: State, value: string) {
 
   state.currentInput.value = value
   state.currentInput.charIndex = value.length
+}
+
+/**
+ * Pick an article from the queue, if there are any queued.
+ */
+
+export function popArticleQueue(state: State): void {
+  // Only work in pending mode, and if there's an article queued up.
+  if (!state.articleQueue.length) return
+  if (state.session.status !== 'pending') return
+
+  // Get the first article in the queue and promote it as the next one
+  const article = state.articleQueue.shift()
+  loadArticle(state, article)
+}
+
+/**
+ * Load an article as the current one
+ */
+
+function loadArticle(state: State, article: Article): void {
+  resetSession(state)
+  state.session = { status: 'ready' }
+  state.article = article
+}
+
+function hasArticle(state: State): boolean {
+  return Boolean(state.article?.tokens?.length)
 }
 
 export default Actions

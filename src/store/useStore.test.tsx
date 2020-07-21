@@ -1,31 +1,34 @@
-import { renderHook, act } from '@testing-library/react-hooks'
-import useStore from './useStore'
+import { renderHook, act, HookResult } from '@testing-library/react-hooks'
+import { createStore, Store, State } from './useStore'
 import tokenize from './useStore/tokenize'
 
-let result, state, actions
+let result: HookResult<Store>
 
 beforeEach(() => {
+  const [useStore] = createStore()
   result = renderHook(() => useStore()).result
 })
 
+const actions = () => result.current.actions
+const state = () => result.current.state
+
 test('works', () => {
-  state = result.current.state
-  expect(state.session.status).toEqual('pending')
-  expect(state.currentInput.value).toEqual('')
+  expect(state().session.status).toEqual('pending')
+  expect(state().currentInput.value).toEqual('')
 })
 
-test('simulate input', () => {
-  actions = result.current.actions
+test('works', () => {
+  receiveArticles()
+  typeSomethingGood()
+  typeSpace()
+})
 
+function receiveArticles() {
   act(() => {
-    actions.update(({ state }) => {
-      state.session = { status: 'ready' }
-      state.article.tokens = tokenize('hi world')
-    })
+    actions().receiveArticles([{ tokens: tokenize('hi world') }])
   })
 
-  state = result.current.state
-  expect(state.article.tokens).toMatchInlineSnapshot(`
+  expect(state().article.tokens).toMatchInlineSnapshot(`
     Array [
       Object {
         "type": "text",
@@ -41,19 +44,20 @@ test('simulate input', () => {
       },
     ]
   `)
+}
 
+function typeSomethingGood() {
   act(() => {
-    actions.setInputValue('hi')
+    actions().setInputValue('hi')
   })
 
-  state = result.current.state
-  expect(state.session).toMatchInlineSnapshot(`
+  expect(state().session).toMatchInlineSnapshot(`
     Object {
       "startedAt": 2007-09-02T00:00:00.000Z,
       "status": "ongoing",
     }
   `)
-  expect(state.currentInput).toMatchInlineSnapshot(`
+  expect(state().currentInput).toMatchInlineSnapshot(`
     Object {
       "charIndex": 2,
       "finishedTokens": Array [],
@@ -62,13 +66,14 @@ test('simulate input', () => {
       "value": "hi",
     }
   `)
+}
 
+function typeSpace() {
   act(() => {
-    actions.inputWhitespace()
+    actions().inputWhitespace()
   })
 
-  state = result.current.state
-  expect(state.currentInput).toMatchInlineSnapshot(`
+  expect(state().currentInput).toMatchInlineSnapshot(`
     Object {
       "charIndex": 0,
       "finishedTokens": Array [
@@ -81,4 +86,4 @@ test('simulate input', () => {
       "value": "",
     }
   `)
-})
+}

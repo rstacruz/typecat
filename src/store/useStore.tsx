@@ -21,64 +21,68 @@ export type Article = {
   tokens: (Token | null)[]
 }
 
-export type Store = {
-  state: {
-    article: Article
-    articleQueue: Article[]
-    results: (Result | null)[]
-    session:
-      | {
-          status: 'ongoing'
-          startedAt: Date | null
-        }
-      | {
-          status: 'pending'
-        }
-      | {
-          status: 'ready'
-        }
-    currentInput: {
-      value: string
-      /** Index of the current token */
-      tokenIndex: number
-      charIndex: number
-      isAccurate: boolean
-      finishedTokens: (TokenStatus | null | void)[]
-    }
+export type State = {
+  article: Article
+  articleQueue: Article[]
+  results: (Result | null)[]
+  session:
+    | {
+        status: 'ongoing'
+        startedAt: Date | null
+      }
+    | {
+        status: 'pending'
+      }
+    | {
+        status: 'ready'
+      }
+  currentInput: {
+    value: string
+    /** Index of the current token */
+    tokenIndex: number
+    charIndex: number
+    isAccurate: boolean
+    finishedTokens: (TokenStatus | null | void)[]
   }
+}
+
+export type Store = {
+  state: State
   actions: Actions
 }
 
-export type State = Store['state']
+const [useStore] = createStore()
 
-const [useStore] = create<Store>((set) => {
-  const update = (fn: (store: Store) => any) => set(produce(fn))
+export function createStore() {
+  return create<Store>((set, get) => {
+    const update = (fn: (store: Store) => any) => set(produce(fn))
 
-  const state: State = {
-    article: {
-      tokens: [],
-    },
+    const state: State = {
+      article: {
+        tokens: [],
+      },
 
-    articleQueue: [],
+      articleQueue: [],
 
-    results: [],
+      results: [],
 
-    session: {
-      status: 'pending',
-    },
+      session: {
+        status: 'pending',
+      },
 
-    currentInput: {
-      value: '',
-      tokenIndex: 0,
-      charIndex: 0,
-      isAccurate: true,
-      finishedTokens: [],
-    },
-  }
+      currentInput: {
+        value: '',
+        tokenIndex: 0,
+        charIndex: 0,
+        isAccurate: true,
+        finishedTokens: [],
+      },
+    }
 
-  const actions = new Actions(update)
+    const actions = new Actions(update, set, get)
 
-  return { state, actions }
-})
+    return { state, actions }
+  })
+}
 
 export default useStore
