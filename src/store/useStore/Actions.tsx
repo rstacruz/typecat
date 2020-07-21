@@ -10,66 +10,56 @@ class Actions {
   }
 
   startNewSession = (): void => {
-    const { update } = this
+    this.update(({ state }) => resetSession(state))
 
-    update(({ state }) => {
-      resetSession(state)
-
-      setTimeout(() => {
-        update(({ state }) => {
-          loadNewSession(state)
-        })
-      }, 300)
-    })
+    setTimeout(() => {
+      this.update(({ state }) => loadNewSession(state))
+    }, 300)
   }
 
   setInputValue = (value: string): void => {
-    const { update } = this
-
-    update(({ state }) => {
-      setInputValue(state, value)
-    })
+    this.update(({ state }) => setInputValue(state, value))
   }
 
   inputWhitespace = (): void => {
-    const { update } = this
+    this.update(({ state }) => inputWhitespace(state))
+  }
+}
 
-    update(({ state }) => {
-      // Only if a session's started
-      if (state.session.status !== 'ongoing') return
+export function inputWhitespace(state: State): void {
+  // Only if a session's started
+  if (state.session.status !== 'ongoing') return
 
-      const index = state.currentInput.tokenIndex
-      const token = state.article.tokens[index]
-      const currentValue = state.currentInput.value
+  const index = state.currentInput.tokenIndex
+  const token = state.article.tokens[index]
+  const currentValue = state.currentInput.value
 
-      // Double enter
-      if (currentValue === '') {
-        state.currentInput.charIndex = 0
-        return
-      }
+  // Double enter
+  if (currentValue === '') {
+    state.currentInput.charIndex = 0
+    return
+  }
 
-      // Check for accuracy
-      let isAccurate = token && token.value === currentValue
+  // Check for accuracy
+  let isAccurate = token && token.value === currentValue
 
-      // Mark as done
-      state.currentInput.finishedTokens[index] = {
-        isAccurate: !!isAccurate,
-      }
+  // Mark as done
+  state.currentInput.finishedTokens[index] = {
+    isAccurate: !!isAccurate,
+  }
 
-      // Are we done?
-      const nextIndex = state.currentInput.tokenIndex + 2
-      if (nextIndex > state.article.tokens.length) {
-        generateResults(state)
-        resetSession(state)
-        loadNewSession(state)
-      } else {
-        // TODO: Skip over any whitespace nodes
-        state.currentInput.tokenIndex = nextIndex
-        state.currentInput.charIndex = 0
-        state.currentInput.value = ''
-        state.currentInput.isAccurate = true
-      }
-    })
+  // Are we done?
+  const nextIndex = state.currentInput.tokenIndex + 2
+  if (nextIndex > state.article.tokens.length) {
+    generateResults(state)
+    resetSession(state)
+    loadNewSession(state)
+  } else {
+    // TODO: Skip over any whitespace nodes
+    state.currentInput.tokenIndex = nextIndex
+    state.currentInput.charIndex = 0
+    state.currentInput.value = ''
+    state.currentInput.isAccurate = true
   }
 }
 
