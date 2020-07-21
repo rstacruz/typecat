@@ -3,22 +3,23 @@ import React from 'react'
 function SessionTimer(props: { startedAt: Date | null }) {
   const { startedAt } = props
   const [now, setNow] = React.useState<Date>(new Date())
-  const [timerId, setTimerId] = React.useState<number | null>(null)
 
   if (!startedAt) return null
 
   React.useEffect(() => {
+    let timerId: number
+
     function tick() {
       requestAnimationFrame(() => {
         setNow(new Date())
-        setTimerId(window.setTimeout(tick, 1000))
+        timerId = window.setTimeout(tick, 1000)
       })
     }
 
     tick()
 
     return () => {
-      if (timerId) window.clearInterval(timerId)
+      if (timerId) window.clearTimeout(timerId)
     }
   }, [startedAt])
 

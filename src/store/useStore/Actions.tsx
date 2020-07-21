@@ -1,20 +1,20 @@
 import { State, Token, Article, Store } from '../useStore'
 import { fetchArticles } from './fetchArticles'
 import { buildResult } from './buildResult'
+import produce from 'immer'
+import { PartialState } from 'zustand'
 
 class Actions {
-  update: (fn: (store: Store) => any) => void
-  set: (state: Partial<Store>) => void
+  set: (state: PartialState<Store>) => void
   get: () => Store
 
-  constructor(
-    update: (fn: (store: Store) => any) => void,
-    set: (state: Partial<Store>) => void,
-    get: () => Store
-  ) {
-    this.update = update
+  constructor(set: (state: PartialState<Store>) => void, get: () => Store) {
     this.set = set
     this.get = get
+  }
+
+  update = (fn: (store: Store) => any): void => {
+    return this.set(produce(fn))
   }
 
   startNewSession = (): void => {
@@ -152,7 +152,7 @@ export function setInputValue(state: State, value: string) {
     state.session = { status: 'ongoing', startedAt: new Date() }
   }
 
-  if (token && token.value && token.value.substr(0, value.length) !== value) {
+  if (token?.value?.substr(0, value.length) !== value) {
     state.currentInput.isAccurate = false
   } else {
     state.currentInput.isAccurate = true

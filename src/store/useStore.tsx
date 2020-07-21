@@ -79,7 +79,7 @@ export function createStore() {
       },
     }
 
-    const actions = new Actions(update, set, get)
+    const actions = new Actions(set, get)
 
     return { state, actions }
   })
