@@ -1,6 +1,6 @@
 import React from 'react'
 import SessionUI from './AppPage/SessionUI'
-import Layout from './AppPage/Layout'
+import Layout from './Layout'
 import useStore from '../store/useStore'
 
 function AppPage() {
