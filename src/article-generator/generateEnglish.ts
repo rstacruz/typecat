@@ -1,11 +1,36 @@
+import ENGLISH_WORDS from './english1000.json'
+
 function generateEnglish({ wordCount }: { wordCount: number }) {
-  const offset = Math.round(Math.random() * 20)
+  return generateFromCorpus({ words: ENGLISH_WORDS, wordCount })
+}
 
-  const words = `before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early before early if up present right very from these however both of look also new can off head few no show good should move right seem school play he many each there each here plan under another go great because order over old end be keep in know become early`.split(
-    ' '
-  )
+/**
+ * Generates a string from a list of words.
+ */
 
-  return words.slice(offset, offset + wordCount).join(' ')
+function generateFromCorpus({
+  words,
+  wordCount,
+}: {
+  words: string[]
+  wordCount: number
+}) {
+  return Array.from(Array(wordCount), () => pick(words)).join(' ')
+}
+
+/**
+ * Returns a random word from the list of words
+ *
+ * @example
+ *     pick(['moe', 'larry', 'curly'])
+ *     // => 'moe'
+ */
+
+function pick(words: string[]): string {
+  // Prefer the top 100 words as much as possible
+  const rand = Math.random() ** 3.5
+  const index = Math.round((words.length - 1) * rand)
+  return words[index]
 }
 
 export { generateEnglish }
