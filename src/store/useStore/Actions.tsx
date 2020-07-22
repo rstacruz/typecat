@@ -4,6 +4,9 @@ import { buildResult } from './buildResult'
 import produce from 'immer'
 import { PartialState } from 'zustand'
 
+/** How many articles to keep in the queue */
+const MAX_QUEUE_DEPTH = 1
+
 class Actions {
   set: (state: PartialState<Store>) => void
   get: () => Store
@@ -13,9 +16,22 @@ class Actions {
     this.get = get
   }
 
+  /**
+   * Modify `state` using immer.
+   *
+   * @example
+   *     this.update(({ state }) => {
+   *       state.session.
+   *     })
+   */
+
   update = (fn: (store: Store) => any): void => {
     return this.set(produce(fn))
   }
+
+  /**
+   * Start a new session. Cancels the current one, if there is one.
+   */
 
   startNewSession = async (): Promise<void> => {
     this.update(({ state }) => {
@@ -27,7 +43,7 @@ class Actions {
     })
 
     // Replenish the queue by fetching remotely.
-    const needed = 2 - this.get().state.articleQueue.length
+    const needed = MAX_QUEUE_DEPTH + 1 - this.get().state.articleQueue.length
     return fetchArticles(needed).then((articles) => {
       this.receiveArticles(articles)
     })
