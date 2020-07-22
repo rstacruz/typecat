@@ -1,6 +1,6 @@
 import { NextApiResponse, NextApiRequest } from 'next'
 import { generateEnglish } from '../../src/article-generator'
-import { tokenize } from '../../src/article-generator/tokenize'
+import { tokenize } from '../../src/article-generator'
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const count = clamp(+(req.query.count || 1), 1, 5)

@@ -14,8 +14,21 @@ function generateFromCorpus({
 }: {
   words: string[]
   wordCount: number
-}) {
-  return Array.from(Array(wordCount), () => pick(words)).join(' ')
+}): string {
+  let result: string[] = []
+  let lastWord: string
+  let i = 0
+
+  while (i < wordCount) {
+    const word = pick(words)
+    if (word !== lastWord) {
+      result.push(word)
+      lastWord = word
+      i++
+    }
+  }
+
+  return result.join(' ')
 }
 
 /**
