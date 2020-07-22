@@ -1,7 +1,6 @@
 import { renderHook, act, HookResult } from '@testing-library/react-hooks'
 import { createStore, Store } from './useStore'
 import { tokenize } from '../article-generator'
-import fetch from 'cross-fetch'
 
 let result: HookResult<Store>
 
@@ -13,9 +12,22 @@ beforeEach(() => {
 const actions = () => result.current.actions
 const state = () => result.current.state
 
-test('works', () => {
-  expect(state().session.status).toEqual('pending')
-  expect(state().currentInput.value).toEqual('')
+test('has a good initial state', () => {
+  expect(state().session).toMatchInlineSnapshot(`
+    Object {
+      "status": "pending",
+    }
+  `)
+
+  expect(state().currentInput).toMatchInlineSnapshot(`
+    Object {
+      "charIndex": 0,
+      "finishedTokens": Array [],
+      "isAccurate": true,
+      "tokenIndex": 0,
+      "value": "",
+    }
+  `)
 })
 
 test('receive articles', () => {
@@ -47,12 +59,15 @@ test('type 1 word', () => {
     actions().setInputValue('hi')
   })
 
+  // Sesion is started
   expect(state().session).toMatchInlineSnapshot(`
     Object {
       "startedAt": 2007-09-02T00:00:00.000Z,
       "status": "ongoing",
     }
   `)
+
+  // Types the word
   expect(state().currentInput).toMatchInlineSnapshot(`
     Object {
       "charIndex": 2,
@@ -86,6 +101,27 @@ test('type 1 word and a space', () => {
   `)
 })
 
+test('receive one article', () => {
+  act(() => {
+    actions().receiveArticles([{ tokens: tokenize('hi world') }])
+  })
+
+  expect(state().article.tokens.length).toBeGreaterThan(0)
+  expect(state().articleQueue.length).toEqual(0)
+})
+
+test('receive multiple articles', () => {
+  act(() => {
+    actions().receiveArticles([
+      { tokens: tokenize('hi world') },
+      { tokens: tokenize('oh hi') },
+    ])
+  })
+
+  expect(state().article.tokens.length).toBeGreaterThan(0)
+  expect(state().articleQueue.length).toEqual(1)
+})
+
 test('type something bad', () => {
   act(() => {
     actions().receiveArticles([{ tokens: tokenize('hi world') }])
@@ -116,12 +152,16 @@ test('type something bad', () => {
   `)
 })
 
-test.only('fetch', async () => {
-  const res = await fetch('/api/articles').then((r) => r.json())
-  console.log(res)
-})
-
 test('finish typing with no articles left', async () => {
+  ;(fetch as any).mockResponseOnce(
+    JSON.stringify({
+      articles: [
+        { tokens: tokenize('hello there') },
+        { tokens: tokenize('oh hi') },
+      ],
+    })
+  )
+
   await act(async () => {
     actions().receiveArticles([{ tokens: tokenize('hi world') }])
     actions().setInputValue('hi')
@@ -131,11 +171,16 @@ test('finish typing with no articles left', async () => {
 
   expect(state().results.length).toEqual(0)
 
+  // Type the final 'enter'
   await act(async () => {
     await actions().inputWhitespace()
   })
 
+  // It should reset and load the next article
   expect(state().results.length).toEqual(1)
   expect(typeof state().results[0].wpm).toEqual('number')
-  expect(state().session.status).toEqual('pending')
+  expect(state().session.status).toEqual('ready')
+
+  let calls = (fetch as any).mock.calls
+  expect(calls[0][0].startsWith('/api/articles?')).toEqual(true)
 })
