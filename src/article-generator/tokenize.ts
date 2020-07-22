@@ -1,4 +1,4 @@
-function tokenize(input: string) {
+export function tokenize(input: string) {
   return input.split(/(\s+)/).map((value, index) => {
     if (index % 2 === 0) {
       return { type: 'text', value }
@@ -7,5 +7,3 @@ function tokenize(input: string) {
     }
   })
 }
-
-export default tokenize

@@ -1,6 +1,6 @@
 import { renderHook, act, HookResult } from '@testing-library/react-hooks'
 import { createStore, Store, State } from './useStore'
-import tokenize from './useStore/tokenize'
+import { tokenize } from '../article-generator'
 
 let result: HookResult<Store>
 
