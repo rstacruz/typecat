@@ -1,3 +1,4 @@
+import fetch from 'cross-fetch'
 import { Article } from '../useStore'
 
 export async function fetchArticles(count: number): Promise<Article[]> {

@@ -17,19 +17,19 @@ class Actions {
     return this.set(produce(fn))
   }
 
-  startNewSession = (): void => {
+  startNewSession = async (): Promise<void> => {
     this.update(({ state }) => {
       // Clear the session and start over.
       resetSession(state)
 
       // If there is a queued article, load it in.
       popArticleQueue(state)
+    })
 
-      // Replenish the queue by fetching remotely.
-      const needed = 2 - state.articleQueue.length
-      fetchArticles(needed).then((articles) => {
-        this.receiveArticles(articles)
-      })
+    // Replenish the queue by fetching remotely.
+    const needed = 2 - this.get().state.articleQueue.length
+    return fetchArticles(needed).then((articles) => {
+      this.receiveArticles(articles)
     })
   }
 
@@ -51,7 +51,7 @@ class Actions {
     this.update(({ state }) => setInputValue(state, value))
   }
 
-  inputWhitespace = (): void => {
+  inputWhitespace = async (): Promise<void> => {
     let action: ReturnType<typeof inputWhitespace>
 
     this.update(({ state }) => {
@@ -60,7 +60,7 @@ class Actions {
 
     if (action?.done) {
       this.update(({ state }) => generateResults(state))
-      this.startNewSession()
+      return this.startNewSession()
     }
   }
 }
