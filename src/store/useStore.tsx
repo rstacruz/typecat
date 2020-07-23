@@ -8,7 +8,8 @@ export type Token = {
 
 export type TokenStatus = {
   isAccurate: boolean
-  // value: string
+  /** What was typed as part of the token */
+  value?: string
 }
 
 export type Result = {

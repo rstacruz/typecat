@@ -84,6 +84,11 @@ test('type 1 word and a space', () => {
       "finishedTokens": Array [
         Object {
           "isAccurate": true,
+          "value": "hi",
+        },
+        Object {
+          "isAccurate": true,
+          "value": " ",
         },
       ],
       "isAccurate": true,
@@ -114,6 +119,40 @@ test('receive multiple articles', () => {
   expect(state().articleQueue.length).toEqual(1)
 })
 
+test('type a bad first word', () => {
+  act(() => {
+    actions().receiveArticles([{ tokens: tokenize('hi world') }])
+    actions().setInputValue('hey')
+    actions().inputWhitespace()
+  })
+
+  expect(state().session).toMatchInlineSnapshot(`
+    Object {
+      "startedAt": 2007-09-02T00:00:00.000Z,
+      "status": "ongoing",
+    }
+  `)
+
+  expect(state().currentInput).toMatchInlineSnapshot(`
+    Object {
+      "charIndex": 0,
+      "finishedTokens": Array [
+        Object {
+          "isAccurate": false,
+          "value": "hey",
+        },
+        Object {
+          "isAccurate": true,
+          "value": " ",
+        },
+      ],
+      "isAccurate": true,
+      "tokenIndex": 2,
+      "value": "",
+    }
+  `)
+})
+
 test('type something bad', () => {
   act(() => {
     actions().receiveArticles([{ tokens: tokenize('hi world') }])
@@ -135,6 +174,11 @@ test('type something bad', () => {
       "finishedTokens": Array [
         Object {
           "isAccurate": true,
+          "value": "hi",
+        },
+        Object {
+          "isAccurate": true,
+          "value": " ",
         },
       ],
       "isAccurate": false,

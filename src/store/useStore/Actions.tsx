@@ -89,8 +89,9 @@ export function inputWhitespace(state: State): { done: true } | undefined {
   // Only if a session's started
   if (state.session.status !== 'ongoing') return
 
+  const tokens = state.article.tokens
   const index = state.currentInput.tokenIndex
-  const token = state.article.tokens[index]
+  const token = tokens[index]
   const currentValue = state.currentInput.value
 
   // Double enter
@@ -105,13 +106,23 @@ export function inputWhitespace(state: State): { done: true } | undefined {
   // Mark as done
   state.currentInput.finishedTokens[index] = {
     isAccurate: !!isAccurate,
+    value: currentValue,
   }
 
-  // TODO: Skip over any whitespace nodes
-  const nextIndex = state.currentInput.tokenIndex + 2
+  // Carry over the whitespace tokens
+  let nextIndex = index + 1,
+    nextToken = tokens[nextIndex]
+  while (nextToken?.type === 'whitespace') {
+    state.currentInput.finishedTokens[nextIndex] = {
+      isAccurate: true,
+      value: tokens[nextIndex].value,
+    }
+    nextIndex += 1
+    nextToken = tokens[nextIndex]
+  }
 
-  // Check if done.
-  if (nextIndex > state.article.tokens.length) {
+  // Check if done
+  if (nextIndex >= tokens.length) {
     return { done: true }
   } else {
     state.currentInput.tokenIndex = nextIndex
