@@ -1,5 +1,4 @@
 import { Result } from '../useStore'
-import { get as getDistance } from 'fast-levenshtein'
 
 type Tokenlike = { value: string } | null | void
 
@@ -12,14 +11,16 @@ const AVERAGE_CHARS_PER_WORD = 5
 export function buildResult(options: {
   durationMs: number
   tokens: ({ value: string } | null)[]
-  finishedTokens: Tokenlike[]
+  finishedTokens: ({ value: string; mistakes: number } | null)[]
 }): Result {
   // Get expected and actual strings
   const expected = stringify(options.tokens)
-  const actual = stringify(options.finishedTokens)
 
-  // Calculate accuracy
-  const { accuracy, mistakeCount } = getAccuracy(expected, actual)
+  // Count mistakes
+  const mistakeCount = options.finishedTokens
+    .map((t) => t?.mistakes || 0)
+    .reduce((a, b) => a + b)
+  const accuracy = 1 - mistakeCount / expected.length
 
   // Estimated number of accurate words
   const netWords = (expected.length - mistakeCount) / AVERAGE_CHARS_PER_WORD
@@ -29,17 +30,6 @@ export function buildResult(options: {
 
   const result: Result = { wpm, accuracy, mistakeCount }
   return result
-}
-
-/**
- * Compute the accuracy of a typed `actual` string based on an
- * `expected` string
- */
-
-export function getAccuracy(expected: string, actual: string) {
-  const mistakeCount = getDistance(expected, actual)
-  const accuracy = 1 - Math.max(Math.min(mistakeCount / expected.length, 1), 0)
-  return { accuracy, mistakeCount }
 }
 
 /**

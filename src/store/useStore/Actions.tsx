@@ -1,3 +1,4 @@
+import { get as getDistance } from 'fast-levenshtein'
 import { State, Token, Article, Store } from '../useStore'
 import { fetchArticles } from './fetchArticles'
 import { buildResult } from './buildResult'
@@ -105,8 +106,8 @@ export function inputWhitespace(state: State): { done: true } | undefined {
 
   // Mark as done
   state.currentInput.finishedTokens[index] = {
-    isAccurate: !!isAccurate,
     value: currentValue,
+    mistakes: isAccurate ? 0 : getDistance(token.value, currentValue),
   }
 
   // Carry over the whitespace tokens
@@ -114,8 +115,9 @@ export function inputWhitespace(state: State): { done: true } | undefined {
     nextToken = tokens[nextIndex]
   while (nextToken?.type === 'whitespace') {
     state.currentInput.finishedTokens[nextIndex] = {
-      isAccurate: true,
-      value: tokens[nextIndex].value,
+      value: '',
+      /* value: tokens[nextIndex].value, */
+      mistakes: 0,
     }
     nextIndex += 1
     nextToken = tokens[nextIndex]

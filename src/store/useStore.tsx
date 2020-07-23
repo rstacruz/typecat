@@ -7,10 +7,11 @@ export type Token = {
 }
 
 export type TokenStatus = {
-  isAccurate: boolean
-
   /** What was typed as part of the token */
   value: string
+
+  /** Number of mistyped characters */
+  mistakes: number
 }
 
 export type Result = {
@@ -62,7 +63,7 @@ export type State = {
     isAccurate: boolean
 
     /** Tokens that have been typed */
-    finishedTokens: (TokenStatus | null | void)[]
+    finishedTokens: (TokenStatus | null)[]
   }
 }
 

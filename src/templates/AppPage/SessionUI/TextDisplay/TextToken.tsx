@@ -77,13 +77,10 @@ export function PastToken(props: {
   value: string
   finishedStatus: TokenStatus
 }) {
+  const isAccurate = props.finishedStatus.mistakes === 0
+
   return (
-    <span
-      className={cn(
-        CSS.root,
-        props.finishedStatus.isAccurate ? CSS.isDone : CSS.isDoneError
-      )}
-    >
+    <span className={cn(CSS.root, isAccurate ? CSS.isDone : CSS.isDoneError)}>
       {props.value}
     </span>
   )

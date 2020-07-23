@@ -84,11 +84,13 @@ test('type 1 word and a space', () => {
       "finishedTokens": Array [
         Object {
           "isAccurate": true,
+          "mistakes": 0,
           "value": "hi",
         },
         Object {
           "isAccurate": true,
-          "value": " ",
+          "mistakes": 0,
+          "value": "",
         },
       ],
       "isAccurate": true,
@@ -139,11 +141,13 @@ test('type a bad first word', () => {
       "finishedTokens": Array [
         Object {
           "isAccurate": false,
+          "mistakes": 2,
           "value": "hey",
         },
         Object {
           "isAccurate": true,
-          "value": " ",
+          "mistakes": 0,
+          "value": "",
         },
       ],
       "isAccurate": true,
@@ -174,11 +178,13 @@ test('type something bad', () => {
       "finishedTokens": Array [
         Object {
           "isAccurate": true,
+          "mistakes": 0,
           "value": "hi",
         },
         Object {
           "isAccurate": true,
-          "value": " ",
+          "mistakes": 0,
+          "value": "",
         },
       ],
       "isAccurate": false,
