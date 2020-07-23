@@ -137,7 +137,11 @@ export function inputWhitespace(state: State): { done: true } | undefined {
  */
 
 export function generateResults(state: State): void {
-  const result = buildResult()
+  const result = buildResult({
+    startedAt: new Date(), // state.session.startedAt,
+    tokens: state.article.tokens,
+    finishedTokens: state.currentInput.finishedTokens,
+  })
   state.results.push(result)
 }
 

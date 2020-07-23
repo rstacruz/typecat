@@ -8,13 +8,15 @@ export type Token = {
 
 export type TokenStatus = {
   isAccurate: boolean
+
   /** What was typed as part of the token */
-  value?: string
+  value: string
 }
 
 export type Result = {
   wpm: number
   accuracy: number
+  mistakeCount: number
 }
 
 export type Article = {
