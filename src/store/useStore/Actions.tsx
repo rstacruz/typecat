@@ -131,7 +131,22 @@ export function inputWhitespace(state: State): { done: true } | undefined {
     state.currentInput.charIndex = 0
     state.currentInput.value = ''
     state.currentInput.isAccurate = true
+
+    buildInterimResult(state)
   }
+}
+
+function buildInterimResult(state: State) {
+  if (state.session.status !== 'ongoing') return
+  const tokens = state.article.tokens
+  const durationMs = +new Date() - +state.session.startedAt
+  const nextIndex = state.currentInput.tokenIndex + 1
+
+  state.interimResult = buildResult({
+    durationMs,
+    tokens: tokens.slice(0, nextIndex),
+    finishedTokens: state.currentInput.finishedTokens.slice(0, nextIndex),
+  })
 }
 
 /**
@@ -159,6 +174,8 @@ export function generateResults(state: State): void {
 
 export function resetSession(state: State): void {
   state.session = { status: 'pending' }
+
+  state.interimResult = null
 
   state.currentInput = {
     tokenIndex: 0,

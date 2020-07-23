@@ -35,6 +35,9 @@ export type State = {
   /** A list of wpm/accuracy results */
   results: (Result | null)[]
 
+  /** The last known result */
+  interimResult: Result | null
+
   /** The current status of the session */
   session:
     | {
@@ -82,6 +85,7 @@ export function createStore() {
       },
       articleQueue: [],
       results: [],
+      interimResult: null,
       session: {
         status: 'pending',
       },

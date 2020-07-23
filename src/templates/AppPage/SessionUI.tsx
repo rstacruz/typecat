@@ -5,12 +5,17 @@ import CSS from './SessionUI/SessionUI.module.css'
 import useStore from '../../store/useStore'
 import SessionTimer from './SessionUI/SessionTimer'
 import MockTextDisplay from './SessionUI/MockTextDisplay'
+import InterimResult from './InterimResult'
 
 function SessionUI() {
   const { state } = useStore()
 
   return (
     <div className={CSS.wrap}>
+      {state.interimResult ? (
+        <InterimResult result={state.interimResult} />
+      ) : null}
+
       <label className={CSS.root}>
         <div className={CSS.article}>
           <div className={CSS.articleContent}>
