@@ -57,7 +57,14 @@ function ResultsDisplay() {
       {[...results].reverse().map((result, index) => {
         return (
           <div key={index}>
-            {result.wpm} WPM, {Math.round(result.accuracy * 100)}% accuracy
+            {Math.round(result.wpm)} WPM, {Math.round(result.accuracy * 100)}%
+            accuracy
+            {result.mistakeCount !== 0 ? (
+              <span title={`${result.mistakeCount} characters mistyped`}>
+                {' '}
+                (-{result.mistakeCount})
+              </span>
+            ) : null}
           </div>
         )
       })}

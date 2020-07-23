@@ -137,8 +137,14 @@ export function inputWhitespace(state: State): { done: true } | undefined {
  */
 
 export function generateResults(state: State): void {
+  if (state.session.status !== 'ongoing') throw new Error('Invariant violation')
+
+  // Get the duration
+  const now = +new Date()
+  const durationMs = now - +state.session.startedAt
+
   const result = buildResult({
-    startedAt: new Date(), // state.session.startedAt,
+    durationMs,
     tokens: state.article.tokens,
     finishedTokens: state.currentInput.finishedTokens,
   })

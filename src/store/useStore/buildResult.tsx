@@ -3,12 +3,14 @@ import { get as getDistance } from 'fast-levenshtein'
 
 type Tokenlike = { value: string } | null | void
 
+const AVERAGE_CHARS_PER_WORD = 5
+
 /**
  * Calculates wpm and accuracy
  */
 
 export function buildResult(options: {
-  startedAt: Date
+  durationMs: number
   tokens: ({ value: string } | null)[]
   finishedTokens: Tokenlike[]
 }): Result {
@@ -19,7 +21,12 @@ export function buildResult(options: {
   // Calculate accuracy
   const { accuracy, mistakeCount } = getAccuracy(expected, actual)
 
-  const wpm = 60
+  // Estimated number of accurate words
+  const netWords = (expected.length - mistakeCount) / AVERAGE_CHARS_PER_WORD
+
+  // Words per minute
+  const wpm = netWords / (options.durationMs / 60000)
+
   const result: Result = { wpm, accuracy, mistakeCount }
   return result
 }

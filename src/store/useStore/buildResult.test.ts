@@ -14,12 +14,16 @@ const NOW = new Date('2010-04-20T08:00:00.000Z')
 
 describe('buildResult()', () => {
   it('works', () => {
-    const result = buildResult({ tokens: TOKENS, finishedTokens: TOKENS })
+    const result = buildResult({
+      tokens: TOKENS,
+      finishedTokens: TOKENS,
+      durationMs: 8000,
+    })
     expect(result).toMatchInlineSnapshot(`
       Object {
         "accuracy": 1,
         "mistakeCount": 0,
-        "wpm": 60,
+        "wpm": 24,
       }
     `)
   })
@@ -28,12 +32,13 @@ describe('buildResult()', () => {
     const result = buildResult({
       tokens: TOKENS,
       finishedTokens: [{ value: 'xxxx' }, ...TOKENS.slice(1)],
+      durationMs: 8000,
     })
     expect(result).toMatchInlineSnapshot(`
       Object {
         "accuracy": 0.75,
         "mistakeCount": 4,
-        "wpm": 60,
+        "wpm": 18,
       }
     `)
   })
