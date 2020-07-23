@@ -4,3 +4,7 @@ require('mockdate').default.set('2007-09-02')
 beforeEach(() => {
   global.fetch.resetMocks()
 })
+
+export function lmao() {
+  return true
+}

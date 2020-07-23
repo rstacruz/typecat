@@ -1,16 +1,8 @@
-import { renderHook, act, HookResult } from '@testing-library/react-hooks'
-import { createStore, Store } from './useStore'
-import { tokenize } from '../article-generator'
+import { act } from '@testing-library/react-hooks'
+import { tokenize } from '../../article-generator'
+import { setupStoreTest } from './setupStoreTest'
 
-let result: HookResult<Store>
-
-beforeEach(() => {
-  const [useStore] = createStore()
-  result = renderHook(() => useStore()).result
-})
-
-const actions = () => result.current.actions
-const state = () => result.current.state
+const { state, actions } = setupStoreTest()
 
 test('has a good initial state', () => {
   expect(state().session).toMatchInlineSnapshot(`
