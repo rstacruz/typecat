@@ -44,8 +44,10 @@ class Actions {
     })
 
     // Replenish the queue by fetching remotely.
-    const needed = MAX_QUEUE_DEPTH + 1 - this.get().state.articleQueue.length
-    return fetchArticles(needed).then((articles) => {
+    const { state } = this.get()
+    const { articleParams } = state
+    const needed = MAX_QUEUE_DEPTH + 1 - state.articleQueue.length
+    return fetchArticles(needed, articleParams).then((articles) => {
       this.receiveArticles(articles)
     })
   }
@@ -79,6 +81,15 @@ class Actions {
       this.update(({ state }) => generateResults(state))
       return this.startNewSession()
     }
+  }
+
+  setArticleParams = (params: State['articleParams']) => {
+    this.update(({ state }) => {
+      state.articleParams = params
+
+      // The queue is now invalidated
+      state.articleQueue = []
+    })
   }
 }
 

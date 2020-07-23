@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import TextDisplay from './SessionUI/TextDisplay'
 import InputField from './SessionUI/InputField'
 import CSS from './SessionUI/SessionUI.module.css'
@@ -13,7 +14,9 @@ function SessionUI() {
   return (
     <div className={CSS.wrap}>
       {state.interimResult ? (
-        <InterimResult result={state.interimResult} />
+        <span className={CSS.extraStatus}>
+          <InterimResult result={state.interimResult} />
+        </span>
       ) : null}
 
       <label className={CSS.root}>
@@ -50,7 +53,26 @@ function SessionUI() {
       <div className={CSS.results}>
         <ResultsDisplay />
       </div>
+
+      <div className={CSS.bottomNav}>
+        <VariantLinks />
+      </div>
     </div>
+  )
+}
+
+function VariantLinks() {
+  const wordCounts = [25, 50, 100]
+  return (
+    <nav>
+      {wordCounts.map((wordCount) => (
+        <span key={wordCount}>
+          <Link href='/english/[wordCount]' as={`/english/${wordCount}`}>
+            <a>{wordCount}</a>
+          </Link>{' '}
+        </span>
+      ))}
+    </nav>
   )
 }
 

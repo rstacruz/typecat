@@ -1,11 +1,18 @@
-import { Article } from '../useStore'
+import { Article, State } from '../useStore'
+import * as Query from 'query-string'
 
-export async function fetchArticles(count: number): Promise<Article[]> {
-  const wordCount = +(localStorage.wordCount || 20)
+export async function fetchArticles(
+  count: number,
+  articleParams: State['articleParams']
+): Promise<Article[]> {
+  const { wordCount } = articleParams
 
-  const res = await fetch(
-    `/api/articles?count=${count}&wordCount=${wordCount}`
-  ).then((res) => res.json())
+  const url = Query.stringifyUrl({
+    url: '/api/articles',
+    query: { count: `${count}`, wordCount: `${wordCount || 4}` },
+  })
+
+  const res = await fetch(url).then((res) => res.json())
 
   return res.articles
 }

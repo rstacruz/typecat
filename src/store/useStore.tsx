@@ -29,6 +29,10 @@ export type State = {
   /** The current article being typed */
   article: Article
 
+  articleParams: {
+    wordCount: number
+  }
+
   /** The next articles to be loaded after finishing the current one */
   articleQueue: Article[]
 
@@ -82,6 +86,9 @@ export function createStore() {
     const state: State = {
       article: {
         tokens: [],
+      },
+      articleParams: {
+        wordCount: 4,
       },
       articleQueue: [],
       results: [],

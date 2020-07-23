@@ -57,3 +57,14 @@
 .results {
   @apply mt-8;
 }
+
+.bottomNav {
+  @apply fixed bottom-0 left-0 p-4;
+}
+
+.extraStatus {
+  @apply fixed bottom-0 p-4 text-center;
+  left: 50%;
+  width: 12rem;
+  margin-left: -6rem;
+}

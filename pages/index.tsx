@@ -1,3 +1,7 @@
-import IndexPage from '../src/templates/AppPage'
+import AppPage from '../src/templates/AppPage'
 
-export default IndexPage
+function Page() {
+  return <AppPage wordCount={25} />
+}
+
+export default Page
