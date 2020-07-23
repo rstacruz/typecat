@@ -10,20 +10,20 @@ const AVERAGE_CHARS_PER_WORD = 5
 
 export function buildResult(options: {
   durationMs: number
-  tokens: ({ value: string } | null)[]
+  tokens: ({ value: string; type: string } | null)[]
   finishedTokens: ({ value: string; mistakes: number } | null)[]
 }): Result {
-  // Get expected and actual strings
-  const expected = stringify(options.tokens)
+  // Get expected string length
+  const expected = getLength(options.tokens)
 
   // Count mistakes
   const mistakeCount = options.finishedTokens
     .map((t) => t?.mistakes || 0)
     .reduce((a, b) => a + b)
-  const accuracy = 1 - mistakeCount / expected.length
+  const accuracy = 1 - mistakeCount / expected
 
   // Estimated number of accurate words
-  const netWords = (expected.length - mistakeCount) / AVERAGE_CHARS_PER_WORD
+  const netWords = (expected - mistakeCount) / AVERAGE_CHARS_PER_WORD
 
   // Words per minute
   const wpm = netWords / (options.durationMs / 60000)
@@ -33,12 +33,14 @@ export function buildResult(options: {
 }
 
 /**
- * Converts a list of tokens to a string
+ * Converts a list of tokens to a string, normalising whitespaces
  */
 
-export function stringify(tokens: Tokenlike[]): string {
-  return tokens
-    .map((token) => (token && token.value).trim())
-    .filter(Boolean)
-    .join('')
+export function getLength(
+  tokens: ({ value: string; type: string } | null)[]
+): number {
+  return tokens.reduce((acc, token) => {
+    if (!token) return acc
+    return token.type === 'whitespace' ? acc + 1 : acc + token.value.length
+  }, 0)
 }

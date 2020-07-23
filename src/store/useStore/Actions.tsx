@@ -115,8 +115,7 @@ export function inputWhitespace(state: State): { done: true } | undefined {
     nextToken = tokens[nextIndex]
   while (nextToken?.type === 'whitespace') {
     state.currentInput.finishedTokens[nextIndex] = {
-      value: '',
-      /* value: tokens[nextIndex].value, */
+      value: ' ',
       mistakes: 0,
     }
     nextIndex += 1

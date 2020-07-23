@@ -88,7 +88,7 @@ test('type 1 word and a space', () => {
         },
         Object {
           "mistakes": 0,
-          "value": "",
+          "value": " ",
         },
       ],
       "isAccurate": true,
@@ -143,7 +143,7 @@ test('type a bad first word', () => {
         },
         Object {
           "mistakes": 0,
-          "value": "",
+          "value": " ",
         },
       ],
       "isAccurate": true,
@@ -178,7 +178,7 @@ test('type something bad', () => {
         },
         Object {
           "mistakes": 0,
-          "value": "",
+          "value": " ",
         },
       ],
       "isAccurate": false,

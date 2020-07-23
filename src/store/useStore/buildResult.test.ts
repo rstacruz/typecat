@@ -1,13 +1,13 @@
-import { buildResult, stringify } from './buildResult'
+import { buildResult } from './buildResult'
 
 const TOKENS = [
-  { value: 'jaaa' },
-  { value: ' ' },
-  { value: 'jaaa' },
-  { value: ' ' },
-  { value: 'ding' },
-  { value: ' ' },
-  { value: 'dong' },
+  { type: 'text', value: 'jaaa' },
+  { type: 'whitespace', value: ' ' },
+  { type: 'text', value: 'jaaa' },
+  { type: 'whitespace', value: ' ' },
+  { type: 'text', value: 'ding' },
+  { type: 'whitespace', value: ' ' },
+  { type: 'text', value: 'dong' },
 ]
 
 const FINISHED_TOKENS = [
@@ -21,7 +21,7 @@ const FINISHED_TOKENS = [
 ]
 
 describe('buildResult()', () => {
-  it('works', () => {
+  test('it works', () => {
     const result = buildResult({
       tokens: TOKENS,
       finishedTokens: FINISHED_TOKENS,
@@ -31,12 +31,26 @@ describe('buildResult()', () => {
       Object {
         "accuracy": 1,
         "mistakeCount": 0,
-        "wpm": 24,
+        "wpm": 28.5,
       }
     `)
   })
 
-  it('works', () => {
+  test('multiple spaces treated just like one', () => {
+    const result = buildResult({
+      tokens: [
+        TOKENS[0],
+        { type: 'whitespace', value: '    ' },
+        ...TOKENS.slice(2),
+      ],
+      finishedTokens: FINISHED_TOKENS,
+      durationMs: 8000,
+    })
+
+    expect(result.accuracy).toEqual(1)
+  })
+
+  test('accounts for mistakes', () => {
     const result = buildResult({
       tokens: TOKENS,
       finishedTokens: [
@@ -47,17 +61,10 @@ describe('buildResult()', () => {
     })
     expect(result).toMatchInlineSnapshot(`
       Object {
-        "accuracy": 0.75,
+        "accuracy": 0.7894736842105263,
         "mistakeCount": 4,
-        "wpm": 18,
+        "wpm": 22.5,
       }
     `)
-  })
-})
-
-describe('stringify()', () => {
-  it('works', () => {
-    const result = stringify(TOKENS)
-    expect(result).toEqual('jaaajaaadingdong')
   })
 })
