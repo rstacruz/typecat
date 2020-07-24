@@ -2,7 +2,9 @@ import MockWord from './MockTextDisplay/MockWord'
 import CSS from './MockTextDisplay/MockTextDisplay.module.css'
 
 function MockTextDisplay() {
-  const lengths = [5, 2, 3, 5, 1, 8, 2, 5, 5, 2, 3, 1]
+  const segment = [5, 2, 3, 5, 1, 8, 2, 5, 2, 1]
+  const lengths = [...segment, ...segment, ...segment]
+
   return (
     <div className={CSS.root}>
       {lengths.map((length, index) => (
