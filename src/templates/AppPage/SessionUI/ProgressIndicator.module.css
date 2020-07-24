@@ -12,8 +12,8 @@
   @apply absolute bottom-0 left-0 z-20 flex-none block rounded-lg;
   background: linear-gradient(
     to right,
-    transparent -25%,
-    theme('colors.green.500')
+    transparent 75%,
+    theme('colors.gray.600')
   );
   transition: width 250ms ease-out;
 }
@@ -23,15 +23,16 @@
   @apply relative z-10 flex-none block;
   background: linear-gradient(
     to right,
-    transparent 25%,
-    theme('colors.yellow.400')
+    theme('colors.gray.200') 50%,
+    theme('colors.green.300')
   );
 }
 
 .tooltip {
-  @apply flex-none inline-block w-12 font-bold text-center whitespace-no-wrap opacity-0 text-token-active-cursor;
-  animation: fadeout 500ms ease-in;
-  margin-bottom: -0.25rem;
+  @apply relative flex-none inline-block w-12 font-bold text-center whitespace-no-wrap opacity-0 text-token-active-cursor;
+  font-family: sans-serif;
+  animation: fadeout 500ms ease-in-out;
+  top: 0.5rem;
 }
 
 @keyframes fadeout {
@@ -45,5 +46,6 @@
 
   100% {
     opacity: 0;
+    transform: translate3d(0, -0.5rem, 0);
   }
 }

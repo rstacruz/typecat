@@ -1,16 +1,18 @@
 import React from 'react'
-import TextDisplay from './SessionUI/TextDisplay'
-import InputField from './SessionUI/InputField'
-import CSS from './SessionUI/SessionUI.module.css'
+import cn from 'classnames'
 import useStore from '../../store/useStore'
-import SessionTimer from './SessionUI/SessionTimer'
-import MockTextDisplay from './SessionUI/MockTextDisplay'
 import { ResultsDisplay } from './ResultsDisplay'
-import { VariantLinks } from './VariantLinks'
+import InputField from './SessionUI/InputField'
+import MockTextDisplay from './SessionUI/MockTextDisplay'
 import { ProgressIndicator } from './SessionUI/ProgressIndicator'
+import SessionTimer from './SessionUI/SessionTimer'
+import CSS from './SessionUI/SessionUI.module.css'
+import TextDisplay from './SessionUI/TextDisplay'
+import { VariantLinks } from './VariantLinks'
 
 function SessionUI() {
   const { state } = useStore()
+  const inProgress = state.session.status === 'ongoing'
 
   return (
     <div className={CSS.wrap}>
@@ -27,10 +29,6 @@ function SessionUI() {
               {/* <div className={CSS.articleSpacer} /> */}
             </div>
           </div>
-        </div>
-
-        <div className={CSS.indicatorArea}>
-          <ProgressIndicator />
         </div>
 
         {state.session.status === 'ongoing' ? (
@@ -51,13 +49,19 @@ function SessionUI() {
             <InputField />
           </div>
         )}
+
+        <div className={CSS.indicatorArea}>
+          <ProgressIndicator />
+        </div>
       </label>
 
-      <div className={CSS.results}>
+      <div className={cn(CSS.results, CSS.mutable, { [CSS.mute]: inProgress })}>
         <ResultsDisplay />
       </div>
 
-      <div className={CSS.bottomNav}>
+      <div
+        className={cn(CSS.bottomNav, CSS.mutable, { [CSS.mute]: inProgress })}
+      >
         <VariantLinks />
       </div>
     </div>

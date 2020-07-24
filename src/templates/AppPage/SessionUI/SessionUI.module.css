@@ -13,24 +13,28 @@
 }
 
 .articleBox {
-  @apply relative;
+  @apply relative mb-5;
 }
 
 /* Fade-away gradients */
 .articleBox::before,
 .articleBox::after {
   content: '';
-  @apply absolute left-0 block w-full h-4 opacity-75;
+  @apply absolute left-0 z-10 block w-full h-4;
 }
 
 .articleBox::before {
   @apply top-0;
-  background: linear-gradient(to top, transparent, theme('colors.body.bg'));
+  background: linear-gradient(to top, transparent, theme('colors.body.bg') 50%);
 }
 
 .articleBox::after {
   @apply bottom-0;
-  background: linear-gradient(to bottom, transparent, theme('colors.body.bg'));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    theme('colors.body.bg') 50%
+  );
 }
 
 .articleContent {
@@ -95,4 +99,19 @@
 
 .indicatorArea {
   @apply h-6 mt-2;
+}
+
+.muteable {
+  transition: opacity 100ms linear;
+}
+
+.mute {
+  opacity: 0.1;
+  transition: opacity 750ms linear;
+}
+
+.mute:hover,
+.mute:focus-within {
+  opacity: 1;
+  transition: opacity 100ms linear;
 }
