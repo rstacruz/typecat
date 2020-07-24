@@ -41,7 +41,7 @@ function generateFromCorpus({
 
 function pick(words: string[]): string {
   // Prefer the top 100 words as much as possible
-  const rand = Math.random() ** 3.5
+  const rand = Math.random() ** 2.5
   const index = Math.round((words.length - 1) * rand)
   return words[index]
 }

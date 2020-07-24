@@ -12,6 +12,26 @@
   @apply h-48 overflow-hidden;
 }
 
+.articleBox {
+  @apply relative;
+}
+
+.articleBox::before,
+.articleBox::after {
+  content: '';
+  @apply absolute left-0 block w-full h-8;
+}
+
+.articleBox::before {
+  @apply top-0;
+  background: linear-gradient(to top, transparent, theme('colors.body.bg'));
+}
+
+.articleBox::after {
+  @apply bottom-0;
+  background: linear-gradient(to bottom, transparent, theme('colors.body.bg'));
+}
+
 .articleContent {
   @apply m-8;
 }
@@ -65,4 +85,9 @@
   left: 50%;
   width: 12rem;
   margin-left: -6rem;
+}
+
+/* Extra space to allow centering properly */
+.articleSpacer {
+  @apply h-24;
 }

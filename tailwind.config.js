@@ -9,6 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        body: {
+          ['bg']: `var(--body-bg, ${colors.white})`,
+        },
         token: {
           ['active-bg']: `var(--token-active-bg, ${colors.green['100']})`,
           ['active-cursor']: `var(--token-active-cursor, ${colors.green['500']})`,

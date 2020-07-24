@@ -20,13 +20,17 @@ function SessionUI() {
       ) : null}
 
       <label className={CSS.root}>
-        <div className={CSS.article}>
-          <div className={CSS.articleContent}>
-            {state.session.status === 'pending' ? (
-              <MockTextDisplay />
-            ) : (
-              <TextDisplay />
-            )}
+        <div className={CSS.articleBox}>
+          <div className={CSS.article}>
+            <div className={CSS.articleContent}>
+              <div className={CSS.articleSpacer} />
+              {state.session.status === 'pending' ? (
+                <MockTextDisplay />
+              ) : (
+                <TextDisplay />
+              )}
+              <div className={CSS.articleSpacer} />
+            </div>
           </div>
         </div>
 
