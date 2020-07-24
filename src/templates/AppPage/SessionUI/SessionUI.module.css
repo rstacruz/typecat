@@ -16,10 +16,11 @@
   @apply relative;
 }
 
+/* Fade-away gradients */
 .articleBox::before,
 .articleBox::after {
   content: '';
-  @apply absolute left-0 block w-full h-8;
+  @apply absolute left-0 block w-full h-4 opacity-75;
 }
 
 .articleBox::before {

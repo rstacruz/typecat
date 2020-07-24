@@ -1,11 +1,20 @@
 .track {
-  @apply block h-px bg-gray-200 rounded-lg;
-  animation: fadein 750ms linear;
+  @apply relative block h-1;
+  animation: fadein 2500ms linear;
 }
 
+/* .track::after { */
+/*   content: ''; */
+/*   @apply absolute inset-0 block bg-gray-300 rounded-lg; */
+/* } */
+
 .indicator {
-  @apply block h-full rounded-lg;
-  background: linear-gradient(to right, transparent, theme('colors.green.500'));
+  @apply relative z-10 block h-full rounded-lg;
+  background: linear-gradient(
+    to right,
+    transparent -25%,
+    theme('colors.green.500')
+  );
   transition: width 250ms ease-out;
 }
 
@@ -14,8 +23,7 @@
 }
 
 .tooltip {
-  @apply inline-block w-12 text-center whitespace-no-wrap text-token-active-cursor;
-  opacity: 0;
+  @apply inline-block w-12 text-center whitespace-no-wrap opacity-0 text-token-active-cursor;
   animation: fadeout 500ms ease-in;
 }
 
@@ -23,6 +31,11 @@
   0% {
     opacity: 0;
   }
+
+  50% {
+    opacity: 0;
+  }
+
   100% {
     opacity: 1;
   }

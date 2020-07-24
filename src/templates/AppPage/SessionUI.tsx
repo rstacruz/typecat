@@ -24,7 +24,7 @@ function SessionUI() {
               ) : (
                 <TextDisplay />
               )}
-              <div className={CSS.articleSpacer} />
+              {/* <div className={CSS.articleSpacer} /> */}
             </div>
           </div>
         </div>
