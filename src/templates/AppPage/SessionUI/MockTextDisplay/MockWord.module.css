@@ -13,11 +13,19 @@
   );
   background-size: 16rem 100%;
   background-position: -4rem 0%;
-  & :global {
-    animation: 750ms ease-in-out infinite placeholder-swish;
-  }
+  animation: placeholder-swish 750ms ease-in-out infinite;
 }
 
 .root::before {
   content: 'X';
+}
+
+@keyframes placeholder-swish {
+  50% {
+    background-position: 8rem 0%;
+  }
+
+  100% {
+    background-position: 8rem 0%;
+  }
 }

@@ -13,6 +13,8 @@ export function buildResult(options: {
   tokens: ({ value: string; type: string } | null)[]
   finishedTokens: ({ value: string; mistakes: number } | null)[]
 }): Result {
+  const { durationMs } = options
+
   // Get expected string length
   const expected = getLength(options.tokens)
 
@@ -26,9 +28,9 @@ export function buildResult(options: {
   const netWords = (expected - mistakeCount) / AVERAGE_CHARS_PER_WORD
 
   // Words per minute
-  const wpm = netWords / (options.durationMs / 60000)
+  const wpm = netWords / (durationMs / 60000)
 
-  const result: Result = { wpm, accuracy, mistakeCount }
+  const result: Result = { wpm, accuracy, mistakeCount, durationMs }
   return result
 }
 

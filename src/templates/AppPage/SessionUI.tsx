@@ -2,25 +2,18 @@ import React from 'react'
 import TextDisplay from './SessionUI/TextDisplay'
 import InputField from './SessionUI/InputField'
 import CSS from './SessionUI/SessionUI.module.css'
-import useStore, { State } from '../../store/useStore'
+import useStore from '../../store/useStore'
 import SessionTimer from './SessionUI/SessionTimer'
 import MockTextDisplay from './SessionUI/MockTextDisplay'
-import InterimResult from './InterimResult'
 import { ResultsDisplay } from './ResultsDisplay'
 import { VariantLinks } from './VariantLinks'
-import { ProgressIndicator } from './SessionUI/ProgressIdicator'
+import { ProgressIndicator } from './SessionUI/ProgressIndicator'
 
 function SessionUI() {
   const { state } = useStore()
 
   return (
     <div className={CSS.wrap}>
-      {state.interimResult ? (
-        <span className={CSS.extraStatus}>
-          <InterimResult result={state.interimResult} />
-        </span>
-      ) : null}
-
       <label className={CSS.root}>
         <div className={CSS.articleBox}>
           <div className={CSS.article}>
@@ -36,7 +29,7 @@ function SessionUI() {
           </div>
         </div>
 
-        <div>
+        <div className={CSS.indicatorArea}>
           <ProgressIndicator />
         </div>
 

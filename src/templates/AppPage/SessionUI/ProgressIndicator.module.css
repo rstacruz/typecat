@@ -1,0 +1,40 @@
+.track {
+  @apply block h-px bg-gray-200 rounded-lg;
+  animation: fadein 750ms linear;
+}
+
+.indicator {
+  @apply block h-full rounded-lg;
+  background: linear-gradient(to right, transparent, theme('colors.green.500'));
+  transition: width 250ms ease-out;
+}
+
+.bling {
+  @apply h-8 pb-4;
+}
+
+.tooltip {
+  @apply inline-block w-12 text-center whitespace-no-wrap text-token-active-cursor;
+  opacity: 0;
+  animation: fadeout 500ms ease-in;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -0.25rem, 0);
+  }
+}

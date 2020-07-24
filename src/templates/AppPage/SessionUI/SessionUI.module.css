@@ -4,7 +4,7 @@
 }
 
 .root {
-  @apply flex-none m-4 rounded-lg;
+  @apply flex-none m-4;
   max-width: 560px;
 }
 
@@ -33,11 +33,11 @@
 }
 
 .articleContent {
-  @apply m-8;
+  @apply my-4;
 }
 
 .input {
-  @apply flex items-center mx-24 mt-0 mb-4 bg-gray-100 rounded-lg;
+  @apply flex items-center my-4 bg-gray-100 rounded-lg;
   box-shadow: inset 0 0 0 1px transparent, 0 1px 2px #4564;
   transition: box-shadow 100ms ease-out;
 }
@@ -90,4 +90,8 @@
 /* Extra space to allow centering properly */
 .articleSpacer {
   @apply h-24;
+}
+
+.indicatorArea {
+  @apply h-8 my-2;
 }

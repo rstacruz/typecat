@@ -18,6 +18,7 @@ export type Result = {
   wpm: number
   accuracy: number
   mistakeCount: number
+  durationMs: number
 }
 
 export type Article = {
