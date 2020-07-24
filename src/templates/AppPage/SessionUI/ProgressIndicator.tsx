@@ -12,20 +12,16 @@ function ProgressIndicator() {
 
   return (
     <div>
-      <div className={CSS.bling}>
-        {wpm && isEnoughTime ? (
-          <span
-            className={CSS.tooltip}
-            key={percent}
-            style={{ marginLeft: `${percent * 92}%` }}
-          >
-            {wpm}
-          </span>
-        ) : null}
-      </div>
-
       <div className={CSS.track}>
-        <div className={CSS.indicator} style={{ width: `${percent * 100}%` }} />
+        <span
+          className={CSS.indicator}
+          style={{ width: `${percent * 100}%` }}
+        />
+        <span className={CSS.spacer} style={{ width: `${percent * 100}%` }} />
+
+        <span className={CSS.tooltip} key={percent}>
+          {wpm && isEnoughTime ? wpm : String.fromCharCode(160)}
+        </span>
       </div>
     </div>
   )
