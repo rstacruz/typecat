@@ -1,12 +1,14 @@
 import React from 'react'
-import Link from 'next/link'
 import TextDisplay from './SessionUI/TextDisplay'
 import InputField from './SessionUI/InputField'
 import CSS from './SessionUI/SessionUI.module.css'
-import useStore from '../../store/useStore'
+import useStore, { State } from '../../store/useStore'
 import SessionTimer from './SessionUI/SessionTimer'
 import MockTextDisplay from './SessionUI/MockTextDisplay'
 import InterimResult from './InterimResult'
+import { ResultsDisplay } from './ResultsDisplay'
+import { VariantLinks } from './VariantLinks'
+import { ProgressIndicator } from './SessionUI/ProgressIdicator'
 
 function SessionUI() {
   const { state } = useStore()
@@ -32,6 +34,10 @@ function SessionUI() {
               <div className={CSS.articleSpacer} />
             </div>
           </div>
+        </div>
+
+        <div>
+          <ProgressIndicator />
         </div>
 
         {state.session.status === 'ongoing' ? (
@@ -61,44 +67,6 @@ function SessionUI() {
       <div className={CSS.bottomNav}>
         <VariantLinks />
       </div>
-    </div>
-  )
-}
-
-function VariantLinks() {
-  const wordCounts = [25, 50, 100]
-  return (
-    <nav>
-      {wordCounts.map((wordCount) => (
-        <span key={wordCount}>
-          <Link href='/english/[wordCount]' as={`/english/${wordCount}`}>
-            <a>{wordCount}</a>
-          </Link>{' '}
-        </span>
-      ))}
-    </nav>
-  )
-}
-
-function ResultsDisplay() {
-  const { state } = useStore()
-  const { results } = state
-  return (
-    <div>
-      {[...results].reverse().map((result, index) => {
-        return (
-          <div key={index}>
-            {Math.round(result.wpm)} WPM, {Math.round(result.accuracy * 100)}%
-            accuracy
-            {result.mistakeCount !== 0 ? (
-              <span title={`${result.mistakeCount} characters mistyped`}>
-                {' '}
-                (-{result.mistakeCount})
-              </span>
-            ) : null}
-          </div>
-        )
-      })}
     </div>
   )
 }
