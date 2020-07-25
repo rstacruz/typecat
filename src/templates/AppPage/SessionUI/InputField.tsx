@@ -12,6 +12,9 @@ export function InputField(props: { disabled?: boolean }) {
 
     inputRef.current.focus()
   }, [props.disabled])
+  /* React.useEffect(() => { */
+  /*   inputRef.current.addEventListener('k */
+  /* }, [inputRef.current]) */
 
   return (
     <input
@@ -27,6 +30,11 @@ export function InputField(props: { disabled?: boolean }) {
       value={state.currentInput.value}
       onChange={(event) => {
         actions.setInputValue(event.target.value)
+      }}
+      onKeyDown={(event) => {
+        if (event.keyCode === 27 && state.currentInput.value === '') {
+          actions.startNewSession()
+        }
       }}
       onKeyPress={(event) => {
         if (event.key === ' ' || event.key === '\t' || event.key === 'Enter') {
