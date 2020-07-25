@@ -27,25 +27,3 @@
     theme('colors.green.300')
   );
 }
-
-.tooltip {
-  @apply relative flex-none inline-block w-12 font-bold text-center whitespace-no-wrap opacity-0 text-token-active-cursor;
-  font-family: sans-serif;
-  animation: fadeout 500ms ease-in-out;
-  top: 0.5rem;
-}
-
-@keyframes fadeout {
-  0% {
-    opacity: 1;
-  }
-
-  75% {
-    opacity: 0.75;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(0, -0.5rem, 0);
-  }
-}

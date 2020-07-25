@@ -1,0 +1,42 @@
+.root {
+  @apply relative whitespace-no-wrap;
+}
+
+.tooltip {
+  @apply absolute inset-0 z-10 inline-block text-center whitespace-no-wrap;
+}
+
+.tooltipText {
+  @apply relative inline-block font-bold opacity-0 text-token-active-cursor;
+  animation: boop 500ms ease-out;
+}
+
+.tooltipText.isMistake {
+  @apply text-token-error-cursor;
+}
+
+.token {
+  animation: fadein 500ms ease-in;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes boop {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, -0.5rem, 0);
+    opacity: 0;
+  }
+}

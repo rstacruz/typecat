@@ -18,10 +18,6 @@ function ProgressIndicator() {
           style={{ width: `${percent * 100}%` }}
         />
         <span className={CSS.spacer} style={{ width: `${percent * 100}%` }} />
-
-        <span className={CSS.tooltip} key={percent}>
-          {wpm && isEnoughTime ? wpm : String.fromCharCode(160)}
-        </span>
       </div>
     </div>
   )
