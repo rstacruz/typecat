@@ -1,14 +1,14 @@
 import React from 'react'
 import cn from 'classnames'
 import useStore from '../../store/useStore'
-import { ResultsDisplay } from './ResultsDisplay'
+import { ResultsDisplay } from './SessionUI/ResultsDisplay'
 import InputField from './SessionUI/InputField'
 import MockTextDisplay from './SessionUI/MockTextDisplay'
 import { ProgressIndicator } from './SessionUI/ProgressIndicator'
 import SessionTimer from './SessionUI/SessionTimer'
 import CSS from './SessionUI/SessionUI.module.css'
 import TextDisplay from './SessionUI/TextDisplay'
-import { VariantLinks } from './VariantLinks'
+import { VariantLinks } from './SessionUI/VariantLinks'
 
 function SessionUI() {
   const { state } = useStore()

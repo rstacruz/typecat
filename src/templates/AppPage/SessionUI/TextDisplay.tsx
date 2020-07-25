@@ -1,12 +1,7 @@
 import React from 'react'
 import useStore from '../../../store/useStore'
-import {
-  ActiveTextToken,
-  WhitespaceToken,
-  FutureToken,
-  PastToken,
-} from './TextDisplay/TextToken'
 import CSS from './TextDisplay/TextDisplay.module.css'
+import TokenView from './TextDisplay/TokenView'
 
 export function TextDisplay() {
   const { state } = useStore()
@@ -14,27 +9,9 @@ export function TextDisplay() {
 
   return (
     <div className={CSS.root}>
-      {tokens.map((token, tokenIndex) => {
+      {tokens.map((token, index) => {
         if (!token) return null
-
-        const key = tokenIndex
-        const isActive = state.currentInput.tokenIndex === tokenIndex
-        const finishedStatus = state.currentInput.finishedTokens[tokenIndex]
-
-        if (isActive) {
-          const { isAccurate, charIndex } = state.currentInput
-          return <ActiveTextToken {...{ key, token, charIndex, isAccurate }} />
-        }
-
-        if (token.type === 'whitespace') {
-          return <WhitespaceToken {...{ key, value: token.value }} />
-        }
-
-        if (finishedStatus) {
-          return <PastToken {...{ key, value: token.value, finishedStatus }} />
-        }
-
-        return <FutureToken {...{ key, value: token.value }} />
+        return <TokenView key={index} {...{ token, index }} />
       })}
     </div>
   )

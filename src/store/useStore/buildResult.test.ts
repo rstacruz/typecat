@@ -30,6 +30,7 @@ describe('buildResult()', () => {
     expect(result).toMatchInlineSnapshot(`
       Object {
         "accuracy": 1,
+        "durationMs": 8000,
         "mistakeCount": 0,
         "wpm": 28.5,
       }
@@ -62,6 +63,7 @@ describe('buildResult()', () => {
     expect(result).toMatchInlineSnapshot(`
       Object {
         "accuracy": 0.7894736842105263,
+        "durationMs": 8000,
         "mistakeCount": 4,
         "wpm": 22.5,
       }

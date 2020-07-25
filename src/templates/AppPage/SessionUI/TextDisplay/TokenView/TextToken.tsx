@@ -1,5 +1,5 @@
 import React from 'react'
-import { Token, TokenStatus } from '../../../../store/useStore'
+import { Token, TokenStatus } from '../../../../../store/useStore'
 import CSS from './TextToken.module.css'
 import cn from 'classnames'
 
