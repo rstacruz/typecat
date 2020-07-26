@@ -46,7 +46,7 @@ class Actions {
 
     // Don't start new sessions if the current one doesn't have anything typed
     // in yet. Unless force mode is on.
-    if (!options && !options.force) {
+    if (!options || !options.force) {
       if (state.session.status === 'ready') return
     }
 
