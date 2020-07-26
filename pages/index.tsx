@@ -1,7 +1,7 @@
 import AppPage from '../src/templates/AppPage'
 
 function Page() {
-  return <AppPage wordCount={50} />
+  return <AppPage />
 }
 
 export default Page

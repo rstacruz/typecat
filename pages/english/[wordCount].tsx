@@ -1,11 +1,18 @@
 import AppPage from '../../src/templates/AppPage'
+import { GeneratorConfig } from '../../src/store/useStore'
 
 function Page({ wordCount }: { wordCount: number }) {
   if (!wordCount) return null
   if (wordCount < 4) return null
   if (wordCount > 200) return null
 
-  return <AppPage wordCount={wordCount} />
+  const generator: GeneratorConfig = {
+    type: 'word',
+    language: 'english',
+    wordCount,
+  }
+
+  return <AppPage generator={generator} />
 }
 
 export default Page

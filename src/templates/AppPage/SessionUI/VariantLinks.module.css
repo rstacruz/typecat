@@ -1,0 +1,7 @@
+.root {
+  @apply flex;
+}
+
+.item {
+  @apply flex-none mr-4;
+}

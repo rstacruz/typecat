@@ -1,5 +1,12 @@
 import { get as getDistance } from 'fast-levenshtein'
-import { State, Token, Article, Store } from '../useStore'
+import {
+  State,
+  Token,
+  Article,
+  Store,
+  GeneratorConfig,
+  getDefaults,
+} from '../useStore'
 import { fetchArticles } from './fetchArticles'
 import { buildResult } from './buildResult'
 import produce from 'immer'
@@ -34,7 +41,15 @@ class Actions {
    * Start a new session. Cancels the current one, if there is one.
    */
 
-  startNewSession = async (): Promise<void> => {
+  startNewSession = async (options?: { force?: boolean }): Promise<void> => {
+    let { state } = this.get()
+
+    // Don't start new sessions if the current one doesn't have anything typed
+    // in yet. Unless force mode is on.
+    if (!options && !options.force) {
+      if (state.session.status === 'ready') return
+    }
+
     this.update(({ state }) => {
       // Clear the session and start over.
       resetSession(state)
@@ -44,10 +59,9 @@ class Actions {
     })
 
     // Replenish the queue by fetching remotely.
-    const { state } = this.get()
-    const { articleParams } = state
+    state = this.get().state
     const needed = MAX_QUEUE_DEPTH + 1 - state.articleQueue.length
-    return fetchArticles(needed, articleParams).then((articles) => {
+    return fetchArticles(needed, state.generator).then((articles) => {
       this.receiveArticles(articles)
     })
   }
@@ -83,9 +97,9 @@ class Actions {
     }
   }
 
-  setArticleParams = (params: State['articleParams']) => {
+  setGeneratorConfig = (generator?: GeneratorConfig) => {
     this.update(({ state }) => {
-      state.articleParams = params
+      state.generator = generator ?? getDefaults().generator
 
       // The queue is now invalidated
       state.articleQueue = []

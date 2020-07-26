@@ -9,6 +9,7 @@ import SessionTimer from './SessionUI/SessionTimer'
 import CSS from './SessionUI/SessionUI.module.css'
 import TextDisplay from './SessionUI/TextDisplay'
 import { VariantLinks } from './SessionUI/VariantLinks'
+import { ExternalNav } from './SessionUI/ExternalNav'
 
 function SessionUI() {
   const { state } = useStore()
@@ -63,6 +64,12 @@ function SessionUI() {
         className={cn(CSS.bottomNav, CSS.mutable, { [CSS.mute]: inProgress })}
       >
         <VariantLinks />
+      </div>
+
+      <div
+        className={cn(CSS.externalNav, CSS.mutable, { [CSS.mute]: inProgress })}
+      >
+        <ExternalNav />
       </div>
     </div>
   )

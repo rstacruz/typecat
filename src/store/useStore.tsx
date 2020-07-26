@@ -32,13 +32,17 @@ export type Preferences = {
   cursorStyle: CursorStyle
 }
 
+export type GeneratorConfig = {
+  type: 'word'
+  language: 'english'
+  wordCount: number
+}
+
 export type State = {
   /** The current article being typed */
   article: Article
 
-  articleParams: {
-    wordCount: number
-  }
+  generator: GeneratorConfig
 
   /** The next articles to be loaded after finishing the current one */
   articleQueue: Article[]
@@ -98,8 +102,10 @@ export function getDefaults(): State {
     article: {
       tokens: [],
     },
-    articleParams: {
-      wordCount: 4,
+    generator: {
+      type: 'word',
+      language: 'english',
+      wordCount: 50,
     },
     articleQueue: [],
     results: [],

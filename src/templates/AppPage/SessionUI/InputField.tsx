@@ -12,9 +12,6 @@ export function InputField(props: { disabled?: boolean }) {
 
     inputRef.current.focus()
   }, [props.disabled])
-  /* React.useEffect(() => { */
-  /*   inputRef.current.addEventListener('k */
-  /* }, [inputRef.current]) */
 
   return (
     <input
@@ -33,6 +30,7 @@ export function InputField(props: { disabled?: boolean }) {
       }}
       onKeyDown={(event) => {
         if (event.keyCode === 27) {
+          event.preventDefault()
           actions.startNewSession()
         }
       }}
