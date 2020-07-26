@@ -26,6 +26,12 @@ export type Article = {
   tokens: (Token | null)[]
 }
 
+export type CursorStyle = 'block' | 'line' | 'invisible'
+
+export type Preferences = {
+  cursorStyle: CursorStyle
+}
+
 export type State = {
   /** The current article being typed */
   article: Article
@@ -42,6 +48,8 @@ export type State = {
 
   /** The last known result */
   interimResult: Result | null
+
+  preferences: Preferences
 
   /** The current status of the session */
   session:
@@ -82,32 +90,37 @@ export type Store = {
 
 const [useStore] = createStore()
 
+export function getDefaults(): State {
+  return {
+    preferences: {
+      cursorStyle: 'block',
+    },
+    article: {
+      tokens: [],
+    },
+    articleParams: {
+      wordCount: 4,
+    },
+    articleQueue: [],
+    results: [],
+    interimResult: null,
+    session: {
+      status: 'pending',
+    },
+    currentInput: {
+      value: '',
+      tokenIndex: 0,
+      charIndex: 0,
+      isAccurate: true,
+      finishedTokens: [],
+    },
+  }
+}
+
 export function createStore() {
   return create<Store>((set, get) => {
-    const state: State = {
-      article: {
-        tokens: [],
-      },
-      articleParams: {
-        wordCount: 4,
-      },
-      articleQueue: [],
-      results: [],
-      interimResult: null,
-      session: {
-        status: 'pending',
-      },
-      currentInput: {
-        value: '',
-        tokenIndex: 0,
-        charIndex: 0,
-        isAccurate: true,
-        finishedTokens: [],
-      },
-    }
-
+    const state: State = getDefaults()
     const actions = new Actions(set, get)
-
     return { state, actions }
   })
 }

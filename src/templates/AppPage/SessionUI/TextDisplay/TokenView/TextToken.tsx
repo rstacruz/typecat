@@ -1,9 +1,15 @@
 import React from 'react'
-import { Token, TokenStatus } from '../../../../../store/useStore'
+import useStore, { Token, TokenStatus } from '../../../../../store/useStore'
 import CSS from './TextToken.module.css'
 import cn from 'classnames'
 
 const NBSP = String.fromCharCode(160)
+
+const CURSOR_CLASSES = {
+  block: CSS.cursor,
+  line: CSS.lineCursor,
+  invisible: '',
+}
 
 /**
  * Token that the user is typing at
@@ -14,6 +20,7 @@ export function ActiveTextToken(props: {
   charIndex: number
   isAccurate: boolean
 }) {
+  const cursorClass = useCursorClass()
   const { token, charIndex } = props
   const value = token.value.replace(/ /g, NBSP)
 
@@ -37,7 +44,7 @@ export function ActiveTextToken(props: {
       className={cn(CSS.root, CSS.isActive, !isAccurate && CSS.isActiveError)}
     >
       {left !== '' ? <span className={CSS.left}>{left}</span> : null}
-      <span className={CSS.cursor} />
+      <span className={cursorClass} />
       <span className={CSS.right}>{right}</span>
     </span>
   )
@@ -84,4 +91,10 @@ export function PastToken(props: {
       {props.value}
     </span>
   )
+}
+
+function useCursorClass(): string | null {
+  const { state } = useStore()
+  const { cursorStyle } = state.preferences
+  return CURSOR_CLASSES[cursorStyle]
 }
