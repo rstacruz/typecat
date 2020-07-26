@@ -29,7 +29,7 @@ function useWpm(): number | null {
   const { state } = useStore()
   const { interimResult } = state
 
-  const isEnoughTime = interimResult && interimResult.durationMs > 2500
+  const isEnoughTime = interimResult && interimResult.durationMs > 500
   if (!isEnoughTime) return null
 
   const wpm = interimResult ? Math.round(interimResult.wpm) : null

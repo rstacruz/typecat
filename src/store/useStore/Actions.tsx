@@ -153,6 +153,7 @@ function buildInterimResult(state: State) {
   const nextIndex = state.currentInput.tokenIndex + 1
 
   state.interimResult = buildResult({
+    isInterim: true,
     durationMs,
     tokens: tokens.slice(0, nextIndex),
     finishedTokens: state.currentInput.finishedTokens.slice(0, nextIndex),

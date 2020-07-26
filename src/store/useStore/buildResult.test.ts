@@ -37,6 +37,23 @@ describe('buildResult()', () => {
     `)
   })
 
+  test('accounts for interim duration', () => {
+    const result = buildResult({
+      isInterim: true,
+      tokens: TOKENS,
+      finishedTokens: FINISHED_TOKENS,
+      durationMs: 0,
+    })
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "accuracy": 1,
+        "durationMs": 0,
+        "mistakeCount": 0,
+        "wpm": 75.99999999999999,
+      }
+    `)
+  })
+
   test('multiple spaces treated just like one', () => {
     const result = buildResult({
       tokens: [
