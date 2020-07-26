@@ -32,7 +32,7 @@ export function InputField(props: { disabled?: boolean }) {
         actions.setInputValue(event.target.value)
       }}
       onKeyDown={(event) => {
-        if (event.keyCode === 27 && state.currentInput.value === '') {
+        if (event.keyCode === 27) {
           actions.startNewSession()
         }
       }}
