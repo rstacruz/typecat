@@ -12,7 +12,7 @@
 
 .tooltipText {
   @apply px-1 font-bold rounded-sm;
-  @apply text-green-500 bg-white;
+  @apply text-green-500 bg-base-bodyBg;
 }
 
 @keyframes boop {

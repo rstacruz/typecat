@@ -4,28 +4,47 @@ const resolve = require('tailwindcss/resolveConfig')
 const defaults = resolve({})
 const colors = defaults.theme.colors
 
+const { createTheme } = require('./src/tailwind-variable-theming')
+
+const theme = createTheme({
+  colors: {
+    base: {
+      bodyBg: colors.white,
+      bodyText: colors.gray['900'],
+      linkText: colors.gray['500'],
+      linkHoverText: colors.blue['500'],
+    },
+    input: {
+      baseBg: colors.gray['100'],
+      baseText: colors.gray['900'],
+      baseOutline: '#0000',
+      focusBg: colors.gray['100'],
+      focusOutline: '#4562',
+      placeholderText: colors.gray['500'],
+    },
+    token: {
+      activeBg: colors.green['100'],
+      activeCursor: colors.green['500'],
+      activeText: colors.green['500'],
+      doneText: colors.gray['500'],
+      errorBg: colors.red['100'],
+      errorCursor: colors.red['500'],
+      errorLinethrough: colors.red['400'],
+      errorText: colors.red['500'],
+      normalText: 'var(--base-body-text)',
+    },
+  },
+})
+
 module.exports = {
   purge: ['./src/**/*.tsx'],
   theme: {
     extend: {
       colors: {
-        body: {
-          ['bg']: `var(--body-bg, ${colors.white})`,
-        },
-        token: {
-          ['active-bg']: `var(--token-active-bg, ${colors.green['100']})`,
-          ['active-cursor']: `var(--token-active-cursor, ${colors.green['500']})`,
-          ['active-text']: `var(--token-active-text, ${colors.green['500']})`,
-          ['done-text']: `var(--token-done-text, ${colors.gray['500']})`,
-          ['error-bg']: `var(--token-error-bg, ${colors.red['100']})`,
-          ['error-cursor']: `var(--token-error-cursor, ${colors.red['500']})`,
-          ['error-linethrough']: `var(--token-error-linethrough, ${colors.red['400']})`,
-          ['error-text']: `var(--token-error-text, ${colors.red['500']})`,
-          ['normal-text']: `var(--token-normal-text, ${colors.gray['900']})`,
-        },
+        ...theme.config.colors,
       },
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [theme.plugin],
 }

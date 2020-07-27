@@ -5,7 +5,7 @@
 }
 
 .input::placeholder {
-  @apply text-gray-500;
+  @apply text-input-placeholderText;
 }
 
 .input:focus {

@@ -7,13 +7,13 @@
 }
 
 .tooltipText {
-  @apply relative inline-block font-bold opacity-0 text-token-active-cursor;
+  @apply relative inline-block font-bold opacity-0 text-token-activeCursor;
   font-family: sans-serif;
   animation: boop 500ms ease-out;
 }
 
 .tooltipText.isMistake {
-  @apply text-token-error-cursor;
+  @apply text-token-errorCursor;
 }
 
 .token {

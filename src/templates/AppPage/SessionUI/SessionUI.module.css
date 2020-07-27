@@ -25,7 +25,11 @@
 
 .articleBox::before {
   @apply top-0;
-  background: linear-gradient(to top, transparent, theme('colors.body.bg') 50%);
+  background: linear-gradient(
+    to top,
+    transparent,
+    theme('colors.base.bodyBg') 50%
+  );
 }
 
 .articleBox::after {
@@ -33,7 +37,7 @@
   background: linear-gradient(
     to bottom,
     transparent,
-    theme('colors.body.bg') 50%
+    theme('colors.base.bodyBg') 50%
   );
 }
 
@@ -42,14 +46,14 @@
 }
 
 .input {
-  @apply flex items-center my-2 bg-gray-100 rounded-lg;
-  box-shadow: inset 0 0 0 1px transparent, 0 1px 2px #4564;
+  @apply flex items-center my-2 rounded-lg bg-input-baseBg text-input-baseText;
+  box-shadow: inset 0 0 0 1px theme('colors.input.baseOutline'), 0 1px 2px #4564;
   transition: box-shadow 100ms ease-out;
 }
 
 .input:focus-within {
-  box-shadow: inset 0 0 0 1px #4562, 0 1px 2px #4564, 0 8px 12px #44556609,
-    0 24px 32px #44556609;
+  box-shadow: inset 0 0 0 1px theme('colors.input.focusOutline'),
+    0 1px 2px #4564, 0 8px 12px #44556609, 0 24px 32px #44556609;
 }
 
 .idleInput {
@@ -60,7 +64,7 @@
   composes: input;
 
   &:focus-within {
-    @apply bg-gray-200;
+    @apply bg-input-focusBg;
   }
 }
 
@@ -131,11 +135,11 @@
 .wrap a {
   &,
   &:visited {
-    @apply text-gray-500 no-underline;
+    @apply no-underline text-base-linkText;
   }
 
   &:hover,
   &:focus {
-    @apply text-blue-500;
+    @apply text-base-linkHoverText;
   }
 }

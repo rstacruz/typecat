@@ -1,19 +1,19 @@
 .root {
-  @apply relative inline-block text-token-normal-text;
+  @apply relative inline-block text-token-normalText;
 }
 
 .isActive {
-  @apply bg-token-active-bg;
+  @apply bg-token-activeBg;
 }
 
 .isDone,
 .isDoneError {
-  @apply text-token-done-text;
+  @apply text-token-doneText;
 }
 
 .isDoneError::before {
   content: '';
-  @apply absolute block bg-token-error-linethrough;
+  @apply absolute block bg-token-errorLinethrough;
   top: 55%;
   left: -0.125rem;
   right: -0.125rem;
@@ -21,15 +21,15 @@
 }
 
 .isActiveError {
-  @apply bg-token-error-bg;
+  @apply bg-token-errorBg;
 }
 
 .isActiveError .left {
-  @apply text-token-error-text;
+  @apply text-token-errorText;
 }
 
 .left {
-  @apply text-token-active-text;
+  @apply text-token-activeText;
 }
 
 .right {
@@ -41,7 +41,7 @@
 }
 
 .cursor::before {
-  @apply absolute bg-token-active-cursor;
+  @apply absolute bg-token-activeCursor;
   content: ' ';
   width: 0.6em;
   top: -1em;
@@ -50,7 +50,7 @@
 }
 
 .isActiveError .cursor::before {
-  @apply bg-token-error-cursor;
+  @apply bg-token-errorCursor;
 }
 
 @keyframes blink {

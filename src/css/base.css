@@ -5,7 +5,12 @@ body {
 }
 
 body {
+  @apply bg-base-bodyBg;
   font-family: 'Roboto Mono', monospace;
   font-size: 16px;
   line-height: 1.5;
+}
+
+:root {
+  @apply theme-default;
 }
