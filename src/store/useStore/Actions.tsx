@@ -126,13 +126,13 @@ export function inputWhitespace(state: State): { done: true } | undefined {
     return
   }
 
-  // Check for accuracy
-  let isAccurate = token && token.value === currentValue
+  // Get the number of mistakes using Levenshtein
+  const mistakes = getInaccuracyCount(token.value, currentValue)
 
   // Mark as done
   state.currentInput.finishedTokens[index] = {
     value: currentValue,
-    mistakes: isAccurate ? 0 : getDistance(token.value, currentValue),
+    mistakes,
   }
 
   // Carry over the whitespace tokens
@@ -269,6 +269,11 @@ function loadArticle(state: State, article: Article): void {
 
 function hasArticle(state: State): boolean {
   return Boolean(state.article?.tokens?.length)
+}
+
+function getInaccuracyCount(expected: string, actual: string): number {
+  if (expected === actual) return 0
+  return Math.min(getDistance(expected, actual), expected.length)
 }
 
 export default Actions

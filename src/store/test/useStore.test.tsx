@@ -189,14 +189,7 @@ test('type something bad', () => {
 })
 
 test('finish typing with no articles left', async () => {
-  ;(fetch as any).mockResponseOnce(
-    JSON.stringify({
-      articles: [
-        { tokens: tokenize('hello there') },
-        { tokens: tokenize('oh hi') },
-      ],
-    })
-  )
+  mockNextArticles()
 
   await act(async () => {
     actions().receiveArticles([{ tokens: tokenize('hi world') }])
@@ -220,3 +213,35 @@ test('finish typing with no articles left', async () => {
   let calls = (fetch as any).mock.calls
   expect(calls[0][0].startsWith('/api/articles?')).toEqual(true)
 })
+
+test('finish typing with extreme mistakes', async () => {
+  mockNextArticles()
+
+  await act(async () => {
+    actions().receiveArticles([{ tokens: tokenize('hi world') }])
+    actions().setInputValue('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    await actions().inputWhitespace()
+    actions().setInputValue('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+    await actions().inputWhitespace()
+  })
+
+  expect(state().results.length).toEqual(1)
+
+  // It doesn't go negative. It's also not zero because the 'space'
+  // character is at least correct.
+  expect(state().results[0].accuracy).toEqual(0.125)
+
+  // Total number of letters
+  expect(state().results[0].mistakeCount).toEqual(7)
+})
+
+export function mockNextArticles() {
+  ;(fetch as any).mockResponseOnce(
+    JSON.stringify({
+      articles: [
+        { tokens: tokenize('hello there') },
+        { tokens: tokenize('oh hi') },
+      ],
+    })
+  )
+}
