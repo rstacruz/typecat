@@ -7,13 +7,13 @@
 }
 
 .tooltipText {
-  @apply relative inline-block font-bold opacity-0 text-token-activeCursor;
+  @apply relative inline-block font-bold opacity-0 text-tooltip-good;
   font-family: sans-serif;
   animation: boop 500ms ease-out;
 }
 
 .tooltipText.isMistake {
-  @apply text-token-errorCursor;
+  @apply text-tooltip-bad;
 }
 
 .token {
@@ -40,13 +40,13 @@
     opacity: 1;
   }
 
-  33% {
+  30% {
     transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 
   100% {
-    transform: scale(0.9) translate3d(0, 0.5rem, 0);
+    transform: scale(0.8) translate3d(0, 0.5rem, 0);
     opacity: 0;
   }
 }

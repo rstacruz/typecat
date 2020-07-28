@@ -13,7 +13,7 @@
   background: linear-gradient(
     to right,
     transparent 75%,
-    theme('colors.gray.600')
+    theme('colors.progress.lead')
   );
   transition: width 250ms ease-out;
 }
@@ -23,7 +23,7 @@
   @apply relative z-10 flex-none block;
   background: linear-gradient(
     to right,
-    theme('colors.gray.200') 50%,
-    theme('colors.green.300')
+    theme('colors.progress.track') 50%,
+    theme('colors.progress.highlight')
   );
 }

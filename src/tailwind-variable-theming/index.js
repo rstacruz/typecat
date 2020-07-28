@@ -1,5 +1,3 @@
-const tailwindPlugin = require('tailwindcss/plugin')
-
 /** @typedef {import('./types').RecursiveKeyValuePairs} RecursiveKeyValuePairs */
 /** @typedef {import('./types').KeyValuePairs} KeyValuePairs */
 /** @typedef {import('./types').ThemeOptions} ThemeOptions */
@@ -20,9 +18,9 @@ function createTheme(definitions) {
     ...toVars(definitions.colors || {}),
   }
 
-  const plugin = tailwindPlugin(({ addUtilities }) => {
+  const plugin = ({ addUtilities }) => {
     addUtilities({ [`.theme-${name}`]: vars })
-  })
+  }
 
   return { config, vars, plugin }
 }
