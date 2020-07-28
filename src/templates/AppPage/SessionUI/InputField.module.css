@@ -5,7 +5,7 @@
 }
 
 .input::placeholder {
-  @apply text-input-placeholderText;
+  @apply opacity-100 text-input-placeholderText;
 }
 
 .input:focus {

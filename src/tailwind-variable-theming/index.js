@@ -72,5 +72,5 @@ module.exports = { createTheme }
 
 /** @param {string} str */
 function kebabCase(str) {
-  return str.replace(/[A-Z]/, (letter) => `-${letter.toLowerCase()}`)
+  return str.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
 }

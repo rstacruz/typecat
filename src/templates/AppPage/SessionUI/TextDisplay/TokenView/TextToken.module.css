@@ -6,14 +6,17 @@
   @apply bg-token-activeBg;
 }
 
-.isDone,
-.isDoneError {
+.isDone {
   @apply text-token-doneText;
+}
+
+.isDoneError {
+  @apply text-token-doneErrorText;
 }
 
 .isDoneError::before {
   content: '';
-  @apply absolute block bg-token-errorLinethrough;
+  @apply absolute block bg-token-doneErrorLinethrough;
   top: 55%;
   left: -0.125rem;
   right: -0.125rem;
