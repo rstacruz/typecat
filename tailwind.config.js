@@ -8,6 +8,7 @@ const dayTheme = createTheme({
     base: {
       bodyBg: colors.white,
       bodyText: colors.gray['900'],
+      muteText: colors.gray['500'],
       linkText: colors.gray['700'],
       linkHoverText: colors.blue['500'],
     },
@@ -51,6 +52,7 @@ const nightTheme = createTheme({
     base: {
       bodyBg: '#1a1a1c',
       bodyText: colors.gray['300'],
+      muteText: colors.gray['700'],
       linkText: colors.gray['500'],
       linkHoverText: colors.blue['500'],
     },

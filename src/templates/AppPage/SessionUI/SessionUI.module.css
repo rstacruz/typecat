@@ -85,10 +85,6 @@
   @apply p-4 bg-green-100;
 }
 
-.results {
-  @apply mt-8;
-}
-
 .bottomNav {
   @apply fixed bottom-0 left-0 p-4;
 
@@ -119,7 +115,7 @@
 
 .mute {
   opacity: 0.25;
-  transition: opacity 5000ms linear;
+  transition: opacity 3000ms linear;
 }
 
 .mute:hover,

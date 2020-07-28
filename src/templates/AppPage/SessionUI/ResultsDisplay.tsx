@@ -1,25 +1,23 @@
 import React from 'react'
 import useStore from '../../../store/useStore'
+import { ResultItem } from './ResultItem'
+import CSS from './ResultsDisplay.module.css'
 
 export function ResultsDisplay() {
   const { state } = useStore()
   const { results } = state
   return (
-    <div>
-      {[...results].reverse().map((result, index) => {
-        return (
-          <div key={index}>
-            {Math.round(result.wpm)} WPM, {Math.round(result.accuracy * 100)}%
-            accuracy
-            {result.mistakeCount !== 0 ? (
-              <span title={`${result.mistakeCount} characters mistyped`}>
-                {' '}
-                (-{result.mistakeCount})
-              </span>
-            ) : null}
-          </div>
-        )
-      })}
+    <div className={CSS.root}>
+      {[...results]
+        .reverse()
+        .slice(0, 5)
+        .map((result, index) => {
+          return (
+            <span className={CSS.item} key={results.length - index}>
+              <ResultItem result={result} latest={index === 0} />
+            </span>
+          )
+        })}
     </div>
   )
 }

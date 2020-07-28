@@ -1,0 +1,64 @@
+.root {
+  @apply block w-24;
+}
+
+.isLatest {
+  transform-origin: 50% 200%;
+}
+
+.wpm {
+  font-size: 1.2em;
+}
+
+.isLatest .wpm,
+.isLatest .label {
+  @apply font-bold text-token-activeText;
+}
+
+.badge {
+  @apply block whitespace-no-wrap;
+}
+
+.label {
+  @apply text-sm;
+}
+
+.accuracy {
+  @apply block text-sm whitespace-no-wrap text-base-muteText;
+}
+
+.isLatest {
+  & .badge {
+    animation: popin 1500ms cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  & .wpm {
+    font-size: 1.72em;
+  }
+
+  & .accuracy {
+    animation: fadein 1500ms linear;
+  }
+}
+
+@keyframes popin {
+  0% {
+    transform: scale(1.5) translate3d(0, -2rem, 0);
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
