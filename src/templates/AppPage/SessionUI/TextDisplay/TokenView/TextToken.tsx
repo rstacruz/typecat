@@ -35,7 +35,9 @@ export function ActiveTextToken(props: {
 
   React.useEffect(() => {
     if (!spanRef.current) return
-    spanRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    requestAnimationFrame(() => {
+      spanRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    })
   }, [])
 
   return (
