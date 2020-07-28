@@ -27,9 +27,11 @@ export type Article = {
 }
 
 export type CursorStyle = 'block' | 'line' | 'invisible'
+export type ThemeStyle = 'day' | 'night'
 
 export type Preferences = {
   cursorStyle: CursorStyle
+  themeStyle: ThemeStyle
 }
 
 export type GeneratorConfig = {
@@ -98,6 +100,7 @@ export function getDefaults(): State {
   return {
     preferences: {
       cursorStyle: 'block',
+      themeStyle: 'day',
     },
     article: {
       tokens: [],

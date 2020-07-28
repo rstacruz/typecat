@@ -29,6 +29,10 @@
     opacity: 0;
   }
 
+  66% {
+    opacity: 0.75;
+  }
+
   100% {
     opacity: 1;
   }

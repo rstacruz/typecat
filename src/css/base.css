@@ -5,12 +5,16 @@ body {
 }
 
 body {
-  @apply bg-base-bodyBg;
+  @apply bg-base-bodyBg text-base-bodyText;
   font-family: 'Roboto Mono', monospace;
   font-size: 16px;
   line-height: 1.5;
 }
 
 :root {
-  @apply theme-default;
+  @apply theme-day;
+}
+
+:root.theme-night {
+  @apply theme-night;
 }

@@ -1,0 +1,16 @@
+.button {
+  @apply p-0 bg-transparent border-0 cursor-pointer text-base-linkText;
+
+  &:hover,
+  &:focus {
+    @apply text-base-linkHoverText;
+  }
+}
+
+.dayButton {
+  composes: button;
+}
+
+.nightButton {
+  composes: button;
+}

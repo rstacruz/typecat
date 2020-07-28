@@ -1,18 +1,20 @@
-import React from 'react'
 import cn from 'classnames'
+import React from 'react'
 import useStore from '../../store/useStore'
-import { ResultsDisplay } from './SessionUI/ResultsDisplay'
+import { ExternalNav } from './SessionUI/ExternalNav'
 import InputField from './SessionUI/InputField'
 import MockTextDisplay from './SessionUI/MockTextDisplay'
 import { ProgressIndicator } from './SessionUI/ProgressIndicator'
+import { ResultsDisplay } from './SessionUI/ResultsDisplay'
 import SessionTimer from './SessionUI/SessionTimer'
 import CSS from './SessionUI/SessionUI.module.css'
 import TextDisplay from './SessionUI/TextDisplay'
 import { VariantLinks } from './SessionUI/VariantLinks'
-import { ExternalNav } from './SessionUI/ExternalNav'
+import { ThemeToggle } from './ThemeToggle'
 
 function SessionUI() {
   const { state } = useStore()
+  useDynamicTheme()
   const inProgress = state.session.status === 'ongoing'
 
   return (
@@ -69,10 +71,23 @@ function SessionUI() {
       <div
         className={cn(CSS.externalNav, CSS.mutable, { [CSS.mute]: inProgress })}
       >
+        <ThemeToggle />
         <ExternalNav />
       </div>
     </div>
   )
+}
+
+function useDynamicTheme() {
+  const { state } = useStore()
+
+  React.useEffect(() => {
+    if (state.preferences.themeStyle === 'night') {
+      document.documentElement.classList.add('theme-night')
+    } else {
+      document.documentElement.classList.remove('theme-night')
+    }
+  }, [state.preferences.themeStyle])
 }
 
 export default SessionUI

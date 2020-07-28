@@ -126,7 +126,12 @@
 }
 
 .externalNav {
-  @apply absolute bottom-0 right-0 p-4;
+  @apply absolute bottom-0 right-0 flex p-4;
+
+  & > * + * {
+    /* space-x-6 doesn't seem to work */
+    @apply ml-6;
+  }
 
   @screen md {
     @apply p-8;

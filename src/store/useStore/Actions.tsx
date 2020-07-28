@@ -6,6 +6,7 @@ import {
   Store,
   GeneratorConfig,
   getDefaults,
+  ThemeStyle,
 } from '../useStore'
 import { fetchArticles } from './fetchArticles'
 import { buildResult } from './buildResult'
@@ -103,6 +104,18 @@ class Actions {
 
       // The queue is now invalidated
       state.articleQueue = []
+    })
+  }
+
+  updatePreferences = (fn: (preferences: State['preferences']) => void) => {
+    this.update(({ state }) => {
+      fn(state.preferences)
+    })
+  }
+
+  setThemeStyle = (value: ThemeStyle) => {
+    this.update(({ state }) => {
+      state.preferences.themeStyle = value
     })
   }
 }

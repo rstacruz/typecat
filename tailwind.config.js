@@ -6,7 +6,8 @@ const colors = defaults.theme.colors
 
 const { createTheme } = require('./src/tailwind-variable-theming')
 
-const theme = createTheme({
+const dayTheme = createTheme({
+  name: 'day',
   colors: {
     base: {
       bodyBg: colors.white,
@@ -46,15 +47,56 @@ const theme = createTheme({
   },
 })
 
+const nightTheme = createTheme({
+  name: 'night',
+  colors: {
+    base: {
+      bodyBg: '#1a1a1c',
+      bodyText: colors.gray['300'],
+      linkText: colors.gray['500'],
+      linkHoverText: colors.blue['500'],
+    },
+    input: {
+      baseBg: '#0001',
+      baseText: 'var(--base-body-text)',
+      baseOutline: '#4562',
+      focusBg: '#78a1',
+      focusOutline: '#4564',
+      placeholderText: colors.gray['500'],
+    },
+    token: {
+      activeBg: colors.green['900'],
+      activeCursor: 'var(--token-active-text)',
+      activeText: colors.green['300'],
+      doneErrorLinethrough: colors.red['700'],
+      doneErrorText: colors.gray['700'],
+      doneText: colors.gray['700'],
+      errorBg: colors.red['900'],
+      errorCursor: 'var(--token-error-text)',
+      errorText: colors.red['300'],
+      normalText: 'var(--base-body-text)',
+    },
+    progress: {
+      lead: colors.gray['600'],
+      highlight: colors.green['700'],
+      track: colors.gray['900'],
+    },
+    tooltip: {
+      good: colors.green['700'],
+      bad: colors.red['700'],
+    },
+  },
+})
+
 module.exports = {
   purge: ['./src/**/*.tsx'],
   theme: {
     extend: {
       colors: {
-        ...theme.config.colors,
+        ...dayTheme.config.colors,
       },
     },
   },
   variants: {},
-  plugins: [theme.plugin],
+  plugins: [dayTheme.plugin, nightTheme.plugin],
 }
