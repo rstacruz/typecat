@@ -23,7 +23,7 @@ function SessionUI() {
         <div className={CSS.articleBox}>
           <div className={CSS.article}>
             <div className={CSS.articleContent}>
-              <div className={CSS.articleSpacer} />
+              {/* <div className={CSS.articleSpacer} /> */}
               {state.session.status === 'pending' ? (
                 <MockTextDisplay />
               ) : (
