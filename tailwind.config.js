@@ -1,9 +1,5 @@
 // https://tailwindcss.com/docs/configuration/
-// const plugin = require('tailwindcss/plugin')
-const resolve = require('tailwindcss/resolveConfig')
-const defaults = resolve({})
-const colors = defaults.theme.colors
-
+const { colors } = require('tailwindcss/defaultConfig').theme
 const { createTheme } = require('./src/tailwind-variable-theming')
 
 const dayTheme = createTheme({
