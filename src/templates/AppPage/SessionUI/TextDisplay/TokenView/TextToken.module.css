@@ -49,7 +49,7 @@
   width: 0.6em;
   top: -1em;
   bottom: -0.25em;
-  animation: blink 250ms linear infinite alternate;
+  animation: blink 500ms linear infinite alternate;
 }
 
 .isActiveError .cursor::before {
