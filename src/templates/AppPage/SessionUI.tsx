@@ -10,7 +10,7 @@ import SessionTimer from './SessionUI/SessionTimer'
 import CSS from './SessionUI/SessionUI.module.css'
 import TextDisplay from './SessionUI/TextDisplay'
 import { VariantLinks } from './SessionUI/VariantLinks'
-import { ThemeToggle } from './ThemeToggle'
+import { ThemeToggle } from './SessionUI/ThemeToggle'
 
 function SessionUI() {
   const { state } = useStore()

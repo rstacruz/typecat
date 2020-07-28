@@ -1,5 +1,5 @@
 import React from 'react'
-import useStore, { TokenStatus } from '../../../store/useStore'
+import useStore, { TokenStatus } from '../../../../store/useStore'
 import CSS from './AddTooltip.module.css'
 import cn from 'classnames'
 

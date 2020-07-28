@@ -2,7 +2,7 @@ import React from 'react'
 import useStore from '../../../store/useStore'
 import CSS from './TextDisplay/TextDisplay.module.css'
 import TokenView from './TextDisplay/TokenView'
-import AddTooltip from './AddTooltip'
+import AddTooltip from './TextDisplay/AddTooltip'
 
 export function TextDisplay() {
   const { state } = useStore()
