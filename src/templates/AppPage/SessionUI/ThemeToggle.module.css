@@ -1,16 +1,33 @@
+.root {
+  @apply relative inline-block w-6 h-6;
+}
+
 .button {
-  @apply p-0 bg-transparent border-0 cursor-pointer text-base-linkText;
+  @apply absolute inset-0 p-0 bg-transparent border-0 cursor-pointer text-base-linkText;
+  transition: all 500ms cubic-bezier(0, 1, 0.75, 1);
 
   &:hover,
   &:focus {
     @apply text-base-linkHoverText;
   }
+
+  &.isInactive {
+    @apply opacity-0 pointer-events-none;
+  }
 }
 
 .dayButton {
   composes: button;
+
+  &.isInactive {
+    transform: translate3d(0, 1rem, 0) scale(0.5);
+  }
 }
 
 .nightButton {
   composes: button;
+
+  &.isInactive {
+    transform: translate3d(0, -1rem, 0) scale(0.5);
+  }
 }

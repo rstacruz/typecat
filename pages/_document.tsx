@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main, NextScript, Html } from 'next/document'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -34,13 +34,13 @@ class InlineStylesHead extends Head {
 export default class CustomDocument extends Document {
   render() {
     return (
-      <html>
+      <Html lang='en'>
         <InlineStylesHead />
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }

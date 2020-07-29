@@ -8,7 +8,11 @@ export function VariantLinks() {
     <nav className={CSS.root}>
       {wordCounts.map((wordCount) => (
         <span key={wordCount} className={CSS.item}>
-          <Link href='/english/[wordCount]' as={`/english/${wordCount}`}>
+          <Link
+            href='/english/[wordCount]'
+            as={`/english/${wordCount}`}
+            replace
+          >
             <a>{wordCount}</a>
           </Link>{' '}
         </span>

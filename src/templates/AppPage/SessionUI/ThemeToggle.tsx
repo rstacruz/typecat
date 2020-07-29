@@ -2,32 +2,33 @@ import React from 'react'
 import useStore from '../../../store/useStore'
 import { Sun, Moon } from 'react-feather'
 import CSS from './ThemeToggle.module.css'
+import cn from 'classnames'
 
 export function ThemeToggle() {
   const { state, actions } = useStore()
   const { themeStyle } = state.preferences
 
-  if (themeStyle === 'night') {
-    return (
+  return (
+    <span className={CSS.root}>
       <button
-        className={CSS.dayButton}
+        className={cn(CSS.dayButton, themeStyle !== 'night' && CSS.isInactive)}
         onClick={() => {
           actions.setThemeStyle('day')
         }}
       >
         <Sun />
       </button>
-    )
-  } else {
-    return (
       <button
-        className={CSS.nightButton}
+        className={cn(
+          CSS.nightButton,
+          themeStyle === 'night' && CSS.isInactive
+        )}
         onClick={() => {
           actions.setThemeStyle('night')
         }}
       >
         <Moon />
       </button>
-    )
-  }
+    </span>
+  )
 }
