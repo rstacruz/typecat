@@ -1,5 +1,4 @@
 import cn from 'classnames'
-import React from 'react'
 import useStore from '../../store/useStore'
 import { ExternalNav } from './SessionUI/ExternalNav'
 import InputField from './SessionUI/InputField'
@@ -11,10 +10,13 @@ import CSS from './SessionUI/SessionUI.module.css'
 import TextDisplay from './SessionUI/TextDisplay'
 import { VariantLinks } from './SessionUI/VariantLinks'
 import { ThemeToggle } from './SessionUI/ThemeToggle'
+import { useThemeDOMEffect } from './useThemeDOMEffect'
+import React from 'react'
 
 function SessionUI() {
   const { state } = useStore()
-  useDynamicTheme()
+  useThemeDOMEffect()
+  useDynamicTheming()
   const inProgress = state.session.status === 'ongoing'
 
   return (
@@ -78,16 +80,24 @@ function SessionUI() {
   )
 }
 
-function useDynamicTheme() {
-  const { state } = useStore()
+function useDynamicTheming() {
+  const { actions } = useStore()
 
   React.useEffect(() => {
-    if (state.preferences.themeStyle === 'night') {
-      document.documentElement.classList.add('theme-night')
-    } else {
-      document.documentElement.classList.remove('theme-night')
+    const mql = window.matchMedia('(prefers-color-scheme: dark)')
+    mql.addListener(apply)
+
+    function apply() {
+      const theme = mql.matches ? 'night' : 'day'
+      actions.setThemeStyle(theme)
     }
-  }, [state.preferences.themeStyle])
+
+    apply()
+
+    return () => {
+      mql.removeListener(apply)
+    }
+  }, [])
 }
 
 export default SessionUI
