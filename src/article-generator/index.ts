@@ -1,2 +1,2 @@
-export * from './index/generateEnglish'
+export * from './index/generate'
 export * from './index/tokenize'

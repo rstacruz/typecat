@@ -7,7 +7,6 @@ function Layout(props: { children: React.ReactNode }) {
       <AppMetaTags
         title='Typecat'
         path='/'
-        lang='en'
         description='How fast can you type?'
       />
       {props.children}

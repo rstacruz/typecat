@@ -8,7 +8,7 @@ function AppPage(props: { generator?: GeneratorConfig }) {
 
   // Start a new session
   React.useEffect(() => {
-    actions.setGeneratorConfig(props.generator || null)
+    actions.setGeneratorConfig(props.generator)
     actions.startNewSession({ force: true })
   }, [props.generator])
 

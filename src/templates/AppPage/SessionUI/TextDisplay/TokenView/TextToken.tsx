@@ -36,7 +36,7 @@ export function ActiveTextToken(props: {
   React.useEffect(() => {
     if (!spanRef.current) return
     requestAnimationFrame(() => {
-      spanRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      spanRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     })
   }, [])
 
@@ -95,7 +95,7 @@ export function PastToken(props: {
   )
 }
 
-function useCursorClass(): string | null {
+function useCursorClass(): string | undefined {
   const { state } = useStore()
   const { cursorStyle } = state.preferences
   return CURSOR_CLASSES[cursorStyle]

@@ -12,6 +12,7 @@ export function ResultsDisplay() {
         .reverse()
         .slice(0, 5)
         .map((result, index) => {
+          if (!result) return null
           return (
             <span className={CSS.item} key={results.length - index}>
               <ResultItem result={result} latest={index === 0} />

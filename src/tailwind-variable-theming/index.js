@@ -18,7 +18,7 @@ function createTheme(definitions) {
     ...toVars(definitions.colors || {}),
   }
 
-  const plugin = ({ addUtilities }) => {
+  const plugin = (/** @type {any} */ { addUtilities }) => {
     addUtilities({ [`.theme-${name}`]: vars })
   }
 

@@ -1,21 +1,26 @@
 import AppPage from '../../src/templates/AppPage'
-import { GeneratorConfig } from '../../src/store/useStore'
+import { GeneratorConfig, LanguageName } from '../../src/store/useStore'
 
-function Page({ wordCount }: { wordCount: number }) {
+export type WordCountPageProps = {
+  wordCount: number
+  language: LanguageName
+}
+
+function WordCountPage({ wordCount, language }: WordCountPageProps) {
   if (!wordCount) return null
   if (wordCount < 4) return null
   if (wordCount > 200) return null
 
   const generator: GeneratorConfig = {
     type: 'word',
-    language: 'english',
+    language,
     wordCount,
   }
 
   return <AppPage generator={generator} />
 }
 
-export default Page
+export default WordCountPage
 
 export async function getStaticPaths() {
   return {
@@ -29,6 +34,10 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
-  return { props: { wordCount: +params.wordCount } }
+export async function getStaticProps({
+  params,
+}: {
+  params: { wordCount: string }
+}) {
+  return { props: { wordCount: +params.wordCount, language: 'english' } }
 }

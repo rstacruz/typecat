@@ -5,12 +5,14 @@ import cn from 'classnames'
 
 function AddTooltip(props: {
   children: React.ReactNode
-  finishedToken: TokenStatus
+  finishedToken?: TokenStatus | null | undefined
 }) {
   const wpm = useWpm()
   if (!wpm) return <>{props.children}</>
 
   const { finishedToken } = props
+  if (!finishedToken) return <>{props.children}</>
+
   const isAccurate = finishedToken.mistakes === 0
 
   return (

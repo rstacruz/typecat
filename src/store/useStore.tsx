@@ -34,9 +34,11 @@ export type Preferences = {
   themeStyle: ThemeStyle
 }
 
+export type LanguageName = 'english' | 'filipino'
+
 export type GeneratorConfig = {
   type: 'word'
-  language: 'english'
+  language: LanguageName
   wordCount: number
 }
 

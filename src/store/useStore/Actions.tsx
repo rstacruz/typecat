@@ -192,7 +192,9 @@ function buildInterimResult(state: State) {
  */
 
 export function generateResults(state: State): void {
-  if (state.session.status !== 'ongoing') throw new Error('Invariant violation')
+  if (state.session.status !== 'ongoing' || !state.session.startedAt) {
+    throw new Error('Invariant violation')
+  }
 
   // Get the duration
   const now = +new Date()
@@ -267,6 +269,8 @@ export function popArticleQueue(state: State): void {
 
   // Get the first article in the queue and promote it as the next one
   const article = state.articleQueue.shift()
+  if (!article) return
+
   loadArticle(state, article)
 }
 

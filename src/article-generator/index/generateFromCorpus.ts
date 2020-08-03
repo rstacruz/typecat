@@ -1,12 +1,3 @@
-import ENGLISH_WORDS from './english1000.json'
-
-// The lower this is, the more short words are picked
-const DIFFICULTY_FACTOR = 1.8
-
-function generateEnglish({ wordCount }: { wordCount: number }) {
-  return generateFromCorpus({ words: ENGLISH_WORDS, wordCount })
-}
-
 /**
  * Generates a string from a list of words.
  */
@@ -14,16 +5,19 @@ function generateEnglish({ wordCount }: { wordCount: number }) {
 function generateFromCorpus({
   words,
   wordCount,
+  difficulty,
 }: {
   words: string[]
   wordCount: number
+  /** The lower the number, the more shorter words are preferred */
+  difficulty: number
 }): string {
   let result: string[] = []
-  let lastWord: string
+  let lastWord: string | undefined = undefined
   let i = 0
 
   while (i < wordCount) {
-    const word = pick(words)
+    const word = pick(words, difficulty)
     if (word !== lastWord) {
       result.push(word)
       lastWord = word
@@ -42,11 +36,11 @@ function generateFromCorpus({
  *     // => 'moe'
  */
 
-function pick(words: string[]): string {
+function pick(words: string[], difficulty: number): string {
   // Prefer the top 100 words as much as possible
-  const rand = Math.random() ** DIFFICULTY_FACTOR
+  const rand = Math.random() ** difficulty
   const index = Math.round((words.length - 1) * rand)
   return words[index]
 }
 
-export { generateEnglish }
+export { generateFromCorpus }

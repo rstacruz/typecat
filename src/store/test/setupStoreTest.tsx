@@ -9,8 +9,8 @@ export function setupStoreTest() {
     result = renderHook(() => useStore()).result
   })
 
-  const actions = () => result.current.actions
-  const state = () => result.current.state
+  const actions = (): Store['actions'] => result.current.actions
+  const state = (): Store['state'] => result.current.state
   const getResult = () => result
 
   return { state, actions, result: getResult }
