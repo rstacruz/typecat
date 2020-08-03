@@ -7,7 +7,9 @@ import 'joi-extract-type'
 const QuerySchema = Joi.object({
   count: Joi.number().min(1).max(5).default(1),
   type: Joi.string().valid('word').default('word'),
-  language: Joi.string().valid('english', 'filipino').default('english'),
+  language: Joi.string()
+    .valid('english', 'filipino', 'codewords', 'css')
+    .default('english'),
   wordCount: Joi.number().min(1).max(200).default(50),
 })
 

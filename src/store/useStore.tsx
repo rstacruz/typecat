@@ -34,7 +34,7 @@ export type Preferences = {
   themeStyle: ThemeStyle
 }
 
-export type LanguageName = 'english' | 'filipino'
+export type LanguageName = 'english' | 'filipino' | 'codewords' | 'css'
 
 export type GeneratorConfig = {
   type: 'word'
