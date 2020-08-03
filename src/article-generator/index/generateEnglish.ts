@@ -1,5 +1,8 @@
 import ENGLISH_WORDS from './english1000.json'
 
+// The lower this is, the more short words are picked
+const DIFFICULTY_FACTOR = 1.8
+
 function generateEnglish({ wordCount }: { wordCount: number }) {
   return generateFromCorpus({ words: ENGLISH_WORDS, wordCount })
 }
@@ -41,7 +44,7 @@ function generateFromCorpus({
 
 function pick(words: string[]): string {
   // Prefer the top 100 words as much as possible
-  const rand = Math.random() ** 2.5
+  const rand = Math.random() ** DIFFICULTY_FACTOR
   const index = Math.round((words.length - 1) * rand)
   return words[index]
 }
