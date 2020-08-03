@@ -9,7 +9,7 @@ function generateFromCorpus({
 }: {
   words: string[]
   wordCount: number
-  /** The lower the number, the more shorter words are preferred */
+  /** The higher the number, the more shorter words are preferred */
   difficulty: number
 }): string {
   let result: string[] = []

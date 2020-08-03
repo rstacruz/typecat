@@ -4,8 +4,8 @@ import { generateFromCorpus } from './generateFromCorpus'
 import { LanguageName } from '../../store/useStore'
 
 const LANGUAGES: { [key: string]: [string[], number] } = {
-  english: [ENGLISH_WORDS, 1.8],
-  filipino: [FILIPINO_WORDS, 1.4],
+  english: [ENGLISH_WORDS, 1.1],
+  filipino: [FILIPINO_WORDS, 2.2],
 }
 
 export function generate({
