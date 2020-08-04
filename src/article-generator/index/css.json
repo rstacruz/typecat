@@ -19,16 +19,22 @@
     "2rem",
     "4rem",
     "#000",
-    "#fff"
+    "#888",
+    "#fff",
+    "rgba()"
   ],
   "values": [
+    "div",
+    "top",
     "flex",
     "bold",
     "auto",
     "left",
     "none",
+    "left",
     "blue",
     "gray",
+    "right",
     "block",
     "right",
     "green",
@@ -39,7 +45,6 @@
     "center",
     "purple",
     "indigo",
-    "rgba()",
     "inherit"
   ],
   "properties": [
@@ -56,7 +61,9 @@
     "order",
     "right",
     "width",
+    "after",
     "border",
+    "before",
     "bottom",
     "cursor",
     "filter",
