@@ -19,7 +19,8 @@ export function InputField(props: { disabled?: boolean }) {
       className={CSS.input}
       autoComplete={'off'}
       disabled={props.disabled}
-      autoCapitalize={'off'}
+      autoCapitalize={'none'}
+      autoCorrect={'off'}
       type='text'
       placeholder={
         state.session.status === 'ready' ? 'Type something to start' : undefined
