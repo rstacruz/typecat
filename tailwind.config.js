@@ -12,6 +12,12 @@ const dayTheme = createTheme({
       linkText: colors.gray['700'],
       linkHoverText: colors.blue['500'],
     },
+    line: {
+      border: '#7894',
+    },
+    panel: {
+      bg: colors.gray['100'],
+    },
     input: {
       baseBg: colors.gray['200'],
       baseText: 'var(--base-body-text)',
@@ -55,6 +61,12 @@ const nightTheme = createTheme({
       muteText: colors.gray['700'],
       linkText: colors.gray['500'],
       linkHoverText: colors.blue['500'],
+    },
+    line: {
+      border: '#7894',
+    },
+    panel: {
+      bg: '#121212',
     },
     input: {
       baseBg: '#78a1',

@@ -1,6 +1,8 @@
 .wrap {
-  @apply flex flex-col items-center justify-center;
-  padding-top: 20vh;
+  @apply relative flex flex-col items-center;
+  padding-top: 18vh;
+  padding-bottom: 18vh;
+  min-height: calc(100vh - 1rem);
 }
 
 .root {
@@ -86,7 +88,7 @@
 }
 
 .bottomNav {
-  @apply fixed bottom-0 left-0 p-4;
+  @apply absolute bottom-0 left-0 p-4;
 
   @screen md {
     @apply p-8;
@@ -94,7 +96,7 @@
 }
 
 .extraStatus {
-  @apply fixed bottom-0 p-4 text-center;
+  @apply absolute bottom-0 p-4 text-center;
   left: 50%;
   width: 12rem;
   margin-left: -6rem;

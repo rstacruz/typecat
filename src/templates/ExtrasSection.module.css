@@ -1,0 +1,7 @@
+.root {
+  @apply p-8 text-center border-0 border-t border-solid bg-panel-bg border-line-border;
+
+  @screen md {
+    @apply pt-64;
+  }
+}
