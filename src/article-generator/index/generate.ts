@@ -1,16 +1,18 @@
 import ENGLISH_WORDS from './english1000.json'
 import FILIPINO_WORDS from './filipino1000.json'
-import CODEWORDS_WORDS from './codewords.json'
-import CSS_PROPERTIES from './cssProperties.json'
-import CSS_VALUES from './cssValues.json'
+import CODEWORDS from './codewords.json'
+import CSS from './css.json'
 import { generateFromCorpus } from './generateFromCorpus'
 import { LanguageName } from '../../store/useStore'
+
+const CSS_WORDS = [...CSS.values, ...CSS.properties, ...CSS.literals]
+const CODEWORDS_WORDS = [...CODEWORDS.keywords, ...CODEWORDS.operators]
 
 const LANGUAGES: { [key: string]: [string[], number] } = {
   english: [ENGLISH_WORDS, 1.1],
   filipino: [FILIPINO_WORDS, 2.2],
   codewords: [CODEWORDS_WORDS, 1.2],
-  css: [[...CSS_VALUES, ...CSS_PROPERTIES], 2.2],
+  css: [CSS_WORDS, 2.2],
 }
 
 export function generate({
