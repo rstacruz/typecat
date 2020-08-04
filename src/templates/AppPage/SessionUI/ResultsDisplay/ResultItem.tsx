@@ -1,5 +1,5 @@
 import React from 'react'
-import { Result } from '../../../store/useStore'
+import { Result } from '../../../../store/useStore'
 import CSS from './ResultItem.module.css'
 import cn from 'classnames'
 

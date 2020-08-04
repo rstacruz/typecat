@@ -10,7 +10,7 @@ import CSS from './SessionUI/SessionUI.module.css'
 import TextDisplay from './SessionUI/TextDisplay'
 import { VariantLinks } from './SessionUI/VariantLinks'
 import { ThemeToggle } from './SessionUI/ThemeToggle'
-import { useThemeDOMEffect } from './useThemeDOMEffect'
+import { useThemeDOMEffect } from './SessionUI/useThemeDOMEffect'
 import React from 'react'
 
 function SessionUI() {

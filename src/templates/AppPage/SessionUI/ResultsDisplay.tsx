@@ -1,7 +1,7 @@
 import React from 'react'
 import useStore from '../../../store/useStore'
-import { ResultItem } from './ResultItem'
-import CSS from './ResultsDisplay.module.css'
+import { ResultItem } from './ResultsDisplay/ResultItem'
+import CSS from './ResultsDisplay/ResultsDisplay.module.css'
 
 export function ResultsDisplay() {
   const { state } = useStore()

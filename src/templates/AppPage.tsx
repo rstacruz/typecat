@@ -2,7 +2,7 @@ import React from 'react'
 import SessionUI from './AppPage/SessionUI'
 import Layout from './Layout'
 import useStore, { GeneratorConfig } from '../store/useStore'
-import { ExtrasSection } from './ExtrasSection'
+import { ExtrasSection } from './AppPage/ExtrasSection'
 
 function AppPage(props: { generator?: GeneratorConfig }) {
   const { actions } = useStore()
