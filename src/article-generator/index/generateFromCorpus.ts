@@ -21,7 +21,7 @@ function generateFromCorpus({
     if (word !== lastWord) {
       result.push(word)
       lastWord = word
-      i++
+      i += word.split(/\s+/).length
     }
   }
 

@@ -5,3 +5,8 @@
 .item {
   @apply flex-none mr-4;
 }
+
+.separator {
+  @apply inline-block w-px ml-2 mr-6 align-bottom bg-line-border;
+  height: 1.5em;
+}

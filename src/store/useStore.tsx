@@ -1,6 +1,18 @@
 import create from 'zustand'
 import Actions from './useStore/Actions'
 
+/**
+ * List of all available languages
+ */
+
+export const LANGUAGES = [
+  'english',
+  'filipino',
+  'codewords',
+  'css',
+  'articles',
+] as const
+
 export type Token = {
   type: string
   value: string
@@ -34,7 +46,6 @@ export type Preferences = {
   themeStyle: ThemeStyle
 }
 
-export const LANGUAGES = ['english', 'filipino', 'codewords', 'css'] as const
 export type LanguageName = typeof LANGUAGES[number]
 
 export type GeneratorConfig = {
@@ -128,6 +139,10 @@ export function getDefaults(): State {
     },
   }
 }
+
+/**
+ * Creates a zustand store.
+ */
 
 export function createStore() {
   return create<Store>((set, get) => {
