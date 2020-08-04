@@ -3,13 +3,14 @@ import { generate } from '../../src/article-generator'
 import { tokenize } from '../../src/article-generator'
 import * as Joi from '@hapi/joi'
 import 'joi-extract-type'
+import { LANGUAGES } from '../../src/store/useStore'
 
 const QuerySchema = Joi.object({
   count: Joi.number().min(1).max(5).default(1),
   type: Joi.string().valid('word').default('word'),
   language: Joi.string()
-    .valid('english', 'filipino', 'codewords', 'css')
-    .default('english'),
+    .valid(...LANGUAGES)
+    .default(LANGUAGES[0]),
   wordCount: Joi.number().min(1).max(200).default(50),
 })
 

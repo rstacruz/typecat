@@ -8,7 +8,7 @@ import { LanguageName } from '../../store/useStore'
 const CSS_WORDS = [...CSS.values, ...CSS.properties, ...CSS.literals]
 const CODEWORDS_WORDS = [...CODEWORDS.keywords, ...CODEWORDS.operators]
 
-const LANGUAGES: { [key: string]: [string[], number] } = {
+const WORD_SETS: { [key: string]: [string[], number] } = {
   english: [ENGLISH_WORDS, 1.1],
   filipino: [FILIPINO_WORDS, 2.2],
   codewords: [CODEWORDS_WORDS, 1.2],
@@ -22,8 +22,8 @@ export function generate({
   wordCount: number
   language: LanguageName
 }) {
-  if (!LANGUAGES[language]) throw new Error(`Unknown language: '${language}'`)
-  const [words, difficulty] = LANGUAGES[language]
+  if (!WORD_SETS[language]) throw new Error(`Unknown language: '${language}'`)
+  const [words, difficulty] = WORD_SETS[language]
 
   return generateFromCorpus({
     words,
