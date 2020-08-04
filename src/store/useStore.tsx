@@ -34,7 +34,8 @@ export type Preferences = {
   themeStyle: ThemeStyle
 }
 
-export type LanguageName = 'english' | 'filipino' | 'codewords' | 'css'
+export const LANGUAGES = ['english', 'filipino', 'codewords', 'css'] as const
+export type LanguageName = typeof LANGUAGES[number]
 
 export type GeneratorConfig = {
   type: 'word'
