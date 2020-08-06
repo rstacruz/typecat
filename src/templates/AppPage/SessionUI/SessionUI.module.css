@@ -15,12 +15,18 @@
 
 .article {
   @apply overflow-hidden;
-  height: calc(1.5em * theme('constants.articleLines') + 1.5em);
+  height: calc(
+    1em * theme('constants.lineHeight') * theme('constants.articleLines') +
+      1.5em
+  );
 }
 
 .articleBox {
   @apply relative mb-5;
+}
 
+.articleBox,
+.input {
   @screen sm {
     @apply text-size-1;
   }
@@ -125,13 +131,15 @@
 }
 
 .mute {
-  opacity: 0.25;
-  transition: opacity 3000ms linear;
+  opacity: 0.75;
+  transition: opacity 3000ms linear, filter 3000ms ease-in;
+  filter: blur(16px);
 }
 
 .mute:hover,
 .mute:focus-within {
   opacity: 1;
+  filter: none;
   transition: opacity 100ms linear;
 }
 

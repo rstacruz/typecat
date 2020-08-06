@@ -117,8 +117,12 @@ module.exports = {
         'size-3': ms(3),
         'size-4': ms(4),
       },
+      fontFamily: {
+        article: ['"JetBrains Mono"', 'monospace'],
+      },
       constants: {
         articleLines: `var(--article-lines, 7)`,
+        lineHeight: 1.5,
       },
     },
   },

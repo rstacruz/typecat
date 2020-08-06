@@ -1,6 +1,5 @@
 .input {
-  @apply w-full p-4 bg-transparent border-0 text-input-baseText;
-  font-family: 'Roboto Mono', monospace;
+  @apply w-full p-4 bg-transparent border-0 font-article text-input-baseText;
   font-size: 1em;
 }
 
@@ -11,7 +10,6 @@
 .input:focus {
   @apply outline-none;
 }
-
 
 .input:focus::placeholder {
   @apply opacity-25;

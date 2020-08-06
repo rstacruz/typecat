@@ -1,5 +1,6 @@
 import 'sanitize.css'
-import 'typeface-roboto-mono'
+/* import 'typeface-roboto-mono' */
+import 'typeface-jetbrains-mono'
 import '../src/css/base.css'
 
 export default function App(props: any) {

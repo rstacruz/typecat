@@ -5,10 +5,9 @@ body {
 }
 
 body {
-  @apply bg-base-bodyBg text-base-bodyText;
-  font-family: 'Roboto Mono', monospace;
+  @apply font-article bg-base-bodyBg text-base-bodyText;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: theme('contsants.lineHeight');
 }
 
 :root {

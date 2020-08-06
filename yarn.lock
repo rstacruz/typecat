@@ -8056,6 +8056,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typeface-jetbrains-mono@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/typeface-jetbrains-mono/-/typeface-jetbrains-mono-2.0.0.tgz#f522311d18ae5681efce1699a99225b525b82e29"
+  integrity sha512-QrIlq+Jtn5ghF0RUSa6WubXro+DmtBOC9M+YQeODd1fW31jPzvY1qRM0qiarIelLgoj4ytWrj6iXCPxcbDWavw==
+
 typeface-roboto-mono@^0.0.75:
   version "0.0.75"
   resolved "https://registry.yarnpkg.com/typeface-roboto-mono/-/typeface-roboto-mono-0.0.75.tgz#00c4543662066a837c014c251ee5140fb66a5ad8"

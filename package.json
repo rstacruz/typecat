@@ -23,6 +23,7 @@
     "react-feather": "^2.0.8",
     "sanitize.css": "^11.0.1",
     "tailwindcss": "^1.5.2",
+    "typeface-jetbrains-mono": "^2.0.0",
     "typeface-roboto-mono": "^0.0.75",
     "zustand": "^2.2.3"
   },
