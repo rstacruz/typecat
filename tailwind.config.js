@@ -109,8 +109,24 @@ module.exports = {
       colors: {
         ...dayTheme.config.colors,
       },
+      fontSize: {
+        'size-minus-1': ms(-1),
+        'size-0': ms(0),
+        'size-1': ms(1),
+        'size-2': ms(2),
+        'size-3': ms(3),
+        'size-4': ms(4),
+      },
+      constants: {
+        articleLines: `var(--article-lines, 7)`,
+      },
     },
   },
   variants: {},
   plugins: [dayTheme.plugin, nightTheme.plugin],
+}
+
+/* Simple modular scale helper */
+function ms(/** @type {number} */ n) {
+  return `${(1.2 ** n).toFixed(2)}em`
 }

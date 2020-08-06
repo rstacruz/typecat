@@ -20,7 +20,7 @@
 }
 
 .label {
-  @apply text-sm;
+  @apply text-size-minus-1;
 }
 
 .accuracy {
@@ -33,7 +33,7 @@
   }
 
   & .wpm {
-    font-size: 1.72em;
+    @apply text-size-3;
   }
 
   & .accuracy {
