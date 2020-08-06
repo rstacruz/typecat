@@ -18,10 +18,11 @@ function generateFromCorpus({
 
   while (i < wordCount) {
     const word = pick(words, difficulty)
-    if (word !== lastWord) {
+    const subwords = word.split(/\s+/)
+    if (subwords[0] !== lastWord) {
       result.push(word)
-      lastWord = word
-      i += word.split(/\s+/).length
+      lastWord = subwords[subwords.length - 1]
+      i += subwords.length
     }
   }
 

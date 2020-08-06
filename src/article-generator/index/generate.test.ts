@@ -10,7 +10,7 @@ for (let language of LANGUAGES) {
       if (!output) throw new Error('No output')
       let words = output.split(' ')
 
-      expect(words.length).toEqual(10)
+      expect(words.length).toBeGreaterThanOrEqual(10)
 
       // No empty words
       for (let word of words) {
