@@ -2,12 +2,14 @@
  * Generates a string from a list of words.
  */
 
+import { WordsetItem } from './generate'
+
 function generateFromCorpus({
   words,
   wordCount,
   difficulty,
 }: {
-  words: string[]
+  words: WordsetItem[]
   wordCount: number
   /** The higher the number, the more shorter words are preferred */
   difficulty: number
@@ -17,7 +19,8 @@ function generateFromCorpus({
   let i = 0
 
   while (i < wordCount) {
-    const word = pick(words, difficulty)
+    let word = pick(words, difficulty)
+    if (typeof word === 'function') word = word()
     const subwords = word.split(/\s+/)
     if (subwords[0] !== lastWord) {
       result.push(word)
@@ -37,7 +40,7 @@ function generateFromCorpus({
  *     // => 'moe'
  */
 
-function pick(words: string[], difficulty: number): string {
+function pick<T>(words: T[], difficulty: number): T {
   // Prefer the top 100 words as much as possible
   const rand = Math.random() ** difficulty
   const index = Math.round((words.length - 1) * rand)

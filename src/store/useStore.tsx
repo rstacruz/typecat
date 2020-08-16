@@ -9,6 +9,7 @@ export const LANGUAGES = [
   'english',
   'filipino',
   'codewords',
+  'code-symbols',
   'css',
   'articles',
 ] as const
